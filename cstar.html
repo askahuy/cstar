@@ -91,9 +91,9 @@
     .hero-showcase {
       position: relative;
       width: 100%;
-      height: calc(100vh - 103px);
-      min-height: 580px;
-      max-height: 960px;
+      height: calc(100vh - 72px);
+      min-height: 640px;
+      max-height: 1020px;
       overflow: hidden;
       background: #0d0c0e;
     }
@@ -131,12 +131,12 @@
     .hero-slide-overlay {
       position: absolute;
       inset: 0;
-      padding: clamp(2rem, 5vw, 4.5rem) max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad)));
+      padding: clamp(2rem, 5vw, 4.5rem) var(--pad);
       background: linear-gradient(
         to top,
-        rgba(14, 10, 12, 0.9) 0%,
-        rgba(14, 10, 12, 0.45) 45%,
-        rgba(14, 10, 12, 0.15) 100%
+        rgba(16, 10, 14, 0.86) 0%,
+        rgba(16, 10, 14, 0.32) 38%,
+        transparent 68%
       );
       color: #fff;
       display: flex;
@@ -173,7 +173,7 @@
     /* THANH ĐIỀU KHIỂN SLIDER GÓC PHẢI DƯỚI */
     .hero-slider-bar {
       position: absolute;
-      right: max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad)));
+      right: var(--pad);
       bottom: clamp(2rem, 5vw, 4.5rem);
       z-index: 10;
       display: flex;
