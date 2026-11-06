@@ -86,9 +86,9 @@
     .header-right { justify-self: end; display: flex; gap: 1.75rem; align-items: center; font-size: 0.85rem; }
 
     /* =====================================================================
-       4. HERO — chữ lớn + ảnh ngang tràn khung
+       4. HERO — CHỮ LỚN + SLIDER SỰ KIỆN TO ĐÙNG
        ===================================================================== */
-    .hero { padding: clamp(3.5rem, 8vw, 7rem) 0 0; position: relative; overflow: hidden; }
+    .hero { padding: clamp(3.5rem, 8vw, 6rem) 0 4rem; position: relative; overflow: hidden; }
 
     .hero-mark {
       position: absolute; right: calc(var(--pad) * -1); top: clamp(1rem, 4vw, 3rem);
@@ -97,22 +97,174 @@
 
     .hero h1 {
       font-family: var(--serif); font-weight: 400;
-      font-size: clamp(3.2rem, 7.1vw, 6.8rem); line-height: 1.02; letter-spacing: -0.02em;
-      margin: 1.5rem 0 3rem; max-width: none; position: relative;
+      font-size: clamp(2.4rem, 7.1vw, 6.8rem); line-height: 1.02; letter-spacing: -0.02em;
+      margin: 1.5rem 0 2.5rem; max-width: none; position: relative;
     }
     .hero h1 em { font-style: italic; color: var(--plum); }
 
     .hero-meta {
       display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end;
-      padding-bottom: clamp(2.5rem, 5vw, 4rem);
+      padding-bottom: clamp(2rem, 4vw, 3rem);
     }
     .hero-meta p { color: var(--ink-soft); max-width: 34rem; }
     .hero-meta .link { justify-self: end; }
 
-    .hero-media { aspect-ratio: 21 / 9; overflow: hidden; background: var(--paper-2); }
-    .hero-media img { transform: scale(1.06); transition: transform 2.4s var(--ease); }
-    .hero-media.in img { transform: scale(1); }
-    .hero-caption { display: flex; justify-content: space-between; margin-top: 0.9rem; font-size: 0.78rem; color: var(--ink-soft); }
+    /* KHUNG SLIDER SỰ KIỆN TO ĐÙNG */
+    .hero-slider-wrap {
+      position: relative;
+      width: 100%;
+      height: min(72vh, 660px);
+      min-height: 420px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #0d0c0e;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+    }
+
+    .hero-slides {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      z-index: 0;
+      transform: scale(1.02);
+      transition: opacity 0.75s var(--ease), transform 1.2s var(--ease);
+      pointer-events: none;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      z-index: 2;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-slide-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+      background: linear-gradient(to top, rgba(16, 12, 14, 0.92) 0%, rgba(16, 12, 14, 0.55) 60%, transparent 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      pointer-events: none;
+    }
+
+    .hero-slide-badge {
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .hero-slide-title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.18;
+      max-width: 48rem;
+    }
+
+    .hero-slide-desc {
+      font-size: clamp(0.85rem, 1.15vw, 0.95rem);
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 42rem;
+      line-height: 1.5;
+    }
+
+    /* THANH ĐIỀU KHIỂN SLIDER GÓC PHẢI DƯỚI */
+    .hero-slider-bar {
+      position: absolute;
+      right: clamp(1.25rem, 3.5vw, 2.5rem);
+      bottom: clamp(1.25rem, 3vw, 2.25rem);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      background: rgba(18, 14, 16, 0.7);
+      backdrop-filter: blur(12px);
+      padding: 0.45rem 0.85rem 0.45rem 1.1rem;
+      border-radius: 99px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .hero-slider-counter {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.9);
+      min-width: 48px;
+    }
+    .hero-slider-counter strong {
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .hero-slider-dots {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .slider-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.3s;
+    }
+
+    .slider-dot.active {
+      width: 22px;
+      border-radius: 99px;
+      background: var(--gold);
+    }
+
+    .hero-slider-arrows {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .slider-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .slider-btn:hover {
+      background: #fff;
+      color: #0c0b0d;
+      border-color: #fff;
+    }
 
     /* =====================================================================
        5. VỀ CHÚNG TÔI
@@ -277,6 +429,14 @@
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
 
+    @media (max-width: 600px) {
+      .hero-slider-wrap { height: auto; min-height: 0; aspect-ratio: 4 / 5; }
+      .hero-slide-overlay { padding: 2.5rem 1.25rem 4.75rem; }
+      .hero-slide-title { font-size: 1.35rem; }
+      .hero-slide-desc, .hero-slider-counter { display: none; }
+      .hero-slider-bar { left: 1rem; right: 1rem; bottom: 1rem; justify-content: space-between; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .reveal, .hero-media img { transition: none; opacity: 1; transform: none; }
     }
@@ -322,15 +482,82 @@
         </div>
       </div>
       <div class="wrap">
-        <figure>
-          <div class="hero-media reveal">
-            <img src="assets/hero.jpg" alt="Sân khấu Tiệc cuối năm 2024 của PV GAS" />
+        <!-- KHUNG SLIDER SỰ KIỆN TO ĐÙNG ĐẶT NGAY ĐẦU TRANG -->
+        <div class="hero-slider-wrap reveal" id="heroSlider">
+          <div class="hero-slides" id="heroSlides">
+            <!-- Slide 1: PV GAS 2024 -->
+            <div class="hero-slide active">
+              <img src="assets/slide-pvgas-2024.jpg" alt="PV GAS — Tiệc cuối năm 2024: Anh Gas Say Hi" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-badge">Sự kiện tiêu biểu · PV GAS</span>
+                <h3 class="hero-slide-title">Tiệc cuối năm 2024 — Anh Gas Say Hi</h3>
+                <p class="hero-slide-desc">Sản xuất sân khấu LED không gian đa chiều, hiệu ứng ánh sáng quy mô lớn.</p>
+              </div>
+            </div>
+
+            <!-- Slide 2: MobiFone Mega Concert -->
+            <div class="hero-slide">
+              <img src="assets/slide-mobifone-concert.jpg" alt="MobiFone — Đêm nhạc Maximizing Life" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-badge">Mega Concert · MobiFone</span>
+                <h3 class="hero-slide-title">Đại nhạc hội Tri ân — Maximizing Life</h3>
+                <p class="hero-slide-desc">Lễ hội âm nhạc ngoài trời quy mô hàng nghìn khán giả, hiệu ứng pháo sáng & dàn nghệ sĩ hàng đầu.</p>
+              </div>
+            </div>
+
+            <!-- Slide 3: PV GAS Fire Concert -->
+            <div class="hero-slide">
+              <img src="assets/slide-fire-concert.jpg" alt="PV GAS — Fire Concert" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-badge">Hòa nhạc nghệ thuật · PV GAS</span>
+                <h3 class="hero-slide-title">Hành trình 35 năm Thắp lửa non sông — Fire Concert</h3>
+                <p class="hero-slide-desc">Chương trình hòa nhạc thính phòng đỉnh cao tại Nhà hát Lớn cùng dàn nhạc giao hưởng.</p>
+              </div>
+            </div>
+
+            <!-- Slide 4: Vietcombank 60 năm -->
+            <div class="hero-slide">
+              <img src="assets/slide-vietcombank.jpg" alt="Vietcombank — Kỷ niệm 60 năm" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-badge">Lễ kỷ niệm & Tài năng · Vietcombank</span>
+                <h3 class="hero-slide-title">Tìm kiếm tài năng & Kỷ niệm 60 năm Vietcombank</h3>
+                <p class="hero-slide-desc">Sân khấu biểu tượng ngôi sao vàng hoành tráng, chuỗi hoạt động toàn hệ thống.</p>
+              </div>
+            </div>
+
+            <!-- Slide 5: PV GAS GasNexus -->
+            <div class="hero-slide">
+              <img src="assets/slide-gasnexus.jpg" alt="PV GAS — GasNexus" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-badge">Year-end Party · PV GAS</span>
+                <h3 class="hero-slide-title">Tiệc cuối năm 2025 — GasNexus</h3>
+                <p class="hero-slide-desc">Thiết kế đường hầm ánh sáng tương lai và cổng chào công nghệ tương tác.</p>
+              </div>
+            </div>
+
+            <!-- Slide 6: Hà Nội FC -->
+            <div class="hero-slide">
+              <img src="assets/slide-hanoifc.jpg" alt="Hà Nội FC — Lễ xuất quân" />
+              <div class="hero-slide-overlay">
+                <span class="hero-slide-badge">Sự kiện thể thao · Hà Nội FC</span>
+                <h3 class="hero-slide-title">Lễ xuất quân & Ra mắt áo đấu CLB Bóng đá Hà Nội</h3>
+                <p class="hero-slide-desc">Tổ chức họp báo, sân khấu ra mắt áo đấu và hiệu ứng màn hình mở cánh cửa biểu tượng.</p>
+              </div>
+            </div>
           </div>
-          <figcaption class="hero-caption">
-            <span>PV GAS — Tiệc cuối năm 2024</span>
-            <span>Tổ chức sự kiện</span>
-          </figcaption>
-        </figure>
+
+          <!-- Thanh điều khiển chuyển ảnh -->
+          <div class="hero-slider-bar">
+            <div class="hero-slider-counter">
+              <strong id="sliderCurrent">01</strong> / <span>06</span>
+            </div>
+            <div class="hero-slider-dots" id="sliderDots"></div>
+            <div class="hero-slider-arrows">
+              <button type="button" class="slider-btn" id="slidePrev" aria-label="Sự kiện trước">←</button>
+              <button type="button" class="slider-btn" id="slideNext" aria-label="Sự kiện tiếp theo">→</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -624,6 +851,68 @@
     document.querySelectorAll('.rail-nav button').forEach((b) =>
       b.addEventListener('click', () => rail.scrollBy({ left: b.dataset.dir * rail.clientWidth * 0.8, behavior: 'smooth' }))
     );
+
+    // BỘ CHUYỂN ẢNH SỰ KIỆN TO ĐÙNG Ở PHẦN ĐẦU (HERO SLIDER)
+    const slides = document.querySelectorAll('.hero-slide');
+    const dotsContainer = document.getElementById('sliderDots');
+    const currentCounter = document.getElementById('sliderCurrent');
+    const prevBtn = document.getElementById('slidePrev');
+    const nextBtn = document.getElementById('slideNext');
+    const sliderWrap = document.getElementById('heroSlider');
+    let currentIndex = 0;
+    let autoPlayTimer = null;
+
+    if (slides.length > 0 && dotsContainer) {
+      // Tạo dots chuyển ảnh
+      slides.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.className = 'slider-dot' + (idx === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Xem sự kiện ${idx + 1}`);
+        dot.addEventListener('click', () => goToSlide(idx));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll('.slider-dot');
+
+      function goToSlide(index) {
+        slides[currentIndex].classList.remove('active');
+        dots[currentIndex].classList.remove('active');
+        currentIndex = (index + slides.length) % slides.length;
+        slides[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+        currentCounter.textContent = String(currentIndex + 1).padStart(2, '0');
+        restartTimer();
+      }
+
+      function nextSlide() { goToSlide(currentIndex + 1); }
+      function prevSlide() { goToSlide(currentIndex - 1); }
+
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+
+      function startTimer() {
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = setInterval(nextSlide, 5000);
+      }
+      function restartTimer() {
+        startTimer();
+      }
+
+      sliderWrap.addEventListener('mouseenter', () => clearInterval(autoPlayTimer));
+      sliderWrap.addEventListener('mouseleave', startTimer);
+
+      // Hỗ trợ vuốt tay chuyển ảnh trên điện thoại / máy tính bảng
+      let touchStartX = 0;
+      sliderWrap.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+      sliderWrap.addEventListener('touchend', (e) => {
+        const diffX = e.changedTouches[0].screenX - touchStartX;
+        if (Math.abs(diffX) > 45) {
+          if (diffX < 0) nextSlide(); else prevSlide();
+        }
+      }, { passive: true });
+
+      startTimer();
+    }
   </script>
 </body>
 </html>
