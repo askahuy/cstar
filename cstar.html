@@ -170,82 +170,42 @@
       margin-top: 0.25rem;
     }
 
-    /* THANH ĐIỀU KHIỂN SLIDER GÓC PHẢI DƯỚI */
-    .hero-slider-bar {
+    /* HAI NÚT CHUYỂN ẢNH Ở HAI BÊN CẠNH */
+    .slider-side-btn {
       position: absolute;
-      right: var(--pad);
-      bottom: clamp(2rem, 5vw, 4.5rem);
+      top: 50%;
+      transform: translateY(-50%);
       z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      background: rgba(18, 14, 16, 0.72);
-      backdrop-filter: blur(14px);
-      padding: 0.55rem 0.95rem 0.55rem 1.25rem;
-      border-radius: 99px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #fff;
-    }
-
-    .hero-slider-counter {
-      font-family: var(--serif);
-      font-size: 1.2rem;
-      letter-spacing: 0.05em;
-      color: rgba(255, 255, 255, 0.9);
-      min-width: 52px;
-    }
-    .hero-slider-counter strong {
-      color: var(--gold);
-      font-weight: 400;
-    }
-
-    .hero-slider-dots {
-      display: flex;
-      gap: 0.45rem;
-      align-items: center;
-    }
-
-    .slider-dot {
-      width: 8px;
-      height: 8px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.35);
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      transition: all 0.3s;
-    }
-
-    .slider-dot.active {
-      width: 24px;
-      border-radius: 99px;
-      background: var(--gold);
-    }
-
-    .hero-slider-arrows {
-      display: flex;
-      gap: 0.4rem;
-    }
-
-    .slider-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(16, 12, 14, 0.45);
+      backdrop-filter: blur(10px);
       color: #fff;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.95rem;
-      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
     }
 
-    .slider-btn:hover {
+    .slider-side-btn.prev { left: clamp(1rem, 2.5vw, 2.5rem); }
+    .slider-side-btn.next { right: clamp(1rem, 2.5vw, 2.5rem); }
+
+    .slider-side-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      fill: none;
+    }
+
+    .slider-side-btn:hover {
       background: #fff;
       color: #0c0b0d;
       border-color: #fff;
+      transform: translateY(-50%) scale(1.06);
     }
 
     /* KHỐI TUYÊN NGÔN THƯƠNG HIỆU NGAY DƯỚI SLIDER */
@@ -435,10 +395,10 @@
 
     @media (max-width: 600px) {
       .hero-showcase { height: auto; min-height: 0; aspect-ratio: 4 / 5; }
-      .hero-slide-overlay { padding: 2.5rem 1.25rem 5rem; }
+      .hero-slide-overlay { padding: 2.5rem 1.25rem 2.25rem; }
       .hero-slide-title { font-size: 1.5rem; }
-      .hero-slide-desc, .hero-slider-dots { display: none; }
-      .hero-slider-bar { left: 1rem; right: 1rem; bottom: 1rem; justify-content: space-between; }
+      .hero-slide-desc { display: none; }
+      .slider-side-btn { width: 42px; height: 42px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -626,17 +586,13 @@
         </div>
       </div>
 
-      <!-- Thanh điều khiển chuyển ảnh -->
-      <div class="hero-slider-bar">
-        <div class="hero-slider-counter">
-          <strong id="sliderCurrent">01</strong> / <span>15</span>
-        </div>
-        <div class="hero-slider-dots" id="sliderDots"></div>
-        <div class="hero-slider-arrows">
-          <button type="button" class="slider-btn" id="slidePrev" aria-label="Sự kiện trước">←</button>
-          <button type="button" class="slider-btn" id="slideNext" aria-label="Sự kiện tiếp theo">→</button>
-        </div>
-      </div>
+      <!-- Hai nút chuyển ảnh ở 2 bên cạnh -->
+      <button type="button" class="slider-side-btn prev" id="slidePrev" aria-label="Sự kiện trước">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+      </button>
+      <button type="button" class="slider-side-btn next" id="slideNext" aria-label="Sự kiện tiếp theo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </button>
     </section>
 
     <!-- ===================================================================
@@ -949,34 +905,18 @@
 
     // BỘ CHUYỂN ẢNH SỰ KIỆN TO ĐÙNG Ở PHẦN ĐẦU (HERO SLIDER)
     const slides = document.querySelectorAll('.hero-slide');
-    const dotsContainer = document.getElementById('sliderDots');
-    const currentCounter = document.getElementById('sliderCurrent');
     const prevBtn = document.getElementById('slidePrev');
     const nextBtn = document.getElementById('slideNext');
     const sliderWrap = document.getElementById('heroSlider');
     let currentIndex = 0;
     let autoPlayTimer = null;
 
-    if (slides.length > 0 && dotsContainer) {
-      // Tạo dots chuyển ảnh
-      slides.forEach((_, idx) => {
-        const dot = document.createElement('button');
-        dot.className = 'slider-dot' + (idx === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', `Xem sự kiện ${idx + 1}`);
-        dot.addEventListener('click', () => goToSlide(idx));
-        dotsContainer.appendChild(dot);
-      });
-
-      const dots = document.querySelectorAll('.slider-dot');
-
+    if (slides.length > 0 && prevBtn && nextBtn) {
       function goToSlide(index) {
         slides[currentIndex].classList.remove('active');
-        dots[currentIndex].classList.remove('active');
         currentIndex = (index + slides.length) % slides.length;
         slides[currentIndex].classList.add('active');
-        dots[currentIndex].classList.add('active');
-        currentCounter.textContent = String(currentIndex + 1).padStart(2, '0');
-        restartTimer();
+        startTimer();
       }
 
       function nextSlide() { goToSlide(currentIndex + 1); }
@@ -988,9 +928,6 @@
       function startTimer() {
         clearInterval(autoPlayTimer);
         autoPlayTimer = setInterval(nextSlide, 5000);
-      }
-      function restartTimer() {
-        startTimer();
       }
 
       sliderWrap.addEventListener('mouseenter', () => clearInterval(autoPlayTimer));
