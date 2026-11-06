@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C-Star — Tư vấn & Phát triển Thương hiệu</title>
+  <meta name="description"
+    content="C-Star — Công ty Cổ phần Tư vấn & Phát triển Thương hiệu C-Star. Chiến lược, nhận diện, sự kiện và truyền thông." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Cormorant Garamond (tiêu đề, kiểu tạp chí) + Inter (nội dung). Cả hai hỗ trợ tiếng Việt. -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* =====================================================================
+       1. TÙY BIẾN NHANH — đổi màu / font tại đây
+       ===================================================================== */
+    :root {
+      --paper: #f5f3ee;
+      /* nền giấy ấm (kiểu Aesop) */
+      --paper-2: #ebe8e0;
+      /* nền phụ */
+      --ink: #1b1b19;
+      /* chữ chính */
+      --ink-soft: #5f5d57;
+      /* chữ phụ */
+      --line: #d6d2c8;
+      /* đường kẻ mảnh */
+      --accent: #7a6a4f;
+      /* màu nhấn đồng thau trầm */
+      --dark: #23241f;
+      /* khối tối (xanh rêu than) */
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --max: 1320px;
+      --pad: clamp(1.25rem, 4vw, 3.5rem);
+      --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    /* =====================================================================
+       2. NỀN TẢNG
+       ===================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin-inline: auto;
+      padding-inline: var(--pad);
+    }
+
+    /* Nhãn nhỏ viết hoa — chữ ký thị giác của Aesop/Apple */
+    .label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .serif {
+      font-family: var(--serif);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    /* Link gạch chân mảnh, chạy khi hover */
+    .link {
+      display: inline-flex;
+      gap: 0.6rem;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding-bottom: 4px;
+      background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+      transition: background-size 0.5s var(--ease);
+    }
+
+    .link:hover {
+      background-size: 0% 1px;
+      background-position: 100% 100%;
+    }
+
+    /* Hiệu ứng hiện dần khi cuộn */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1.1s var(--ease), transform 1.1s var(--ease);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* =====================================================================
+       3. HEADER
+       ===================================================================== */
+    .topbar {
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      padding: 0.55rem var(--pad);
+      background: var(--dark);
+      color: #d9d6cc;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(245, 243, 238, 0.92);
+      backdrop-filter: saturate(160%) blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s;
+    }
+
+    .header.scrolled {
+      border-color: var(--line);
+    }
+
+    .header-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 72px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      font-size: 0.85rem;
+    }
+
+    .nav a {
+      opacity: 0.75;
+      transition: opacity 0.3s;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .wordmark {
+      font-family: var(--serif);
+      font-size: 1.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    .header-right {
+      justify-self: end;
+      display: flex;
+      gap: 1.75rem;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    /* =====================================================================
+       4. HERO — bố cục tạp chí, chữ lớn + ảnh dọc
+       ===================================================================== */
+    .hero {
+      padding: clamp(3rem, 8vw, 7rem) 0 clamp(4rem, 8vw, 6rem);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(2rem, 6vw, 6rem);
+      align-items: end;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(3rem, 7.2vw, 6.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-lede {
+      max-width: 30rem;
+      color: var(--ink-soft);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-media {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--paper-2);
+    }
+
+    .hero-media img {
+      transform: scale(1.06);
+      transition: transform 2.4s var(--ease);
+    }
+
+    .hero-media.in img {
+      transform: scale(1);
+    }
+
+    .hero-caption {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+    }
+
+    /* =====================================================================
+       5. TUYÊN NGÔN — một câu lớn, nhiều khoảng trắng
+       ===================================================================== */
+    .statement {
+      padding: clamp(5rem, 12vw, 10rem) 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .statement p {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 3.8vw, 3.4rem);
+      line-height: 1.22;
+      max-width: 22ch;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .statement .label {
+      display: block;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    /* =====================================================================
+       6. DỊCH VỤ — danh sách đánh số, kẻ dòng mảnh
+       ===================================================================== */
+    .services {
+      padding-bottom: clamp(5rem, 10vw, 8rem);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .section-head h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+    }
+
+    .service {
+      display: grid;
+      grid-template-columns: 5rem 1.1fr 1.4fr 1fr;
+      gap: 2rem;
+      padding: 2.4rem 0;
+      border-bottom: 1px solid var(--line);
+      transition: background 0.5s var(--ease), padding 0.5s var(--ease);
+    }
+
+    .service:hover {
+      background: var(--paper-2);
+      padding-inline: 1.25rem;
+    }
+
+    .service-no {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .service h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.85rem;
+      line-height: 1.15;
+    }
+
+    .service p {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+    }
+
+    .service ul {
+      list-style: none;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .service li {
+      padding: 0.15rem 0;
+    }
+
+    /* =====================================================================
+       7. DỰ ÁN — dải ảnh cuộn ngang (kiểu Apple)
+       ===================================================================== */
+    .work {
+      padding: clamp(5rem, 10vw, 8rem) 0;
+      background: var(--paper-2);
+    }
+
+    .rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: clamp(280px, 34vw, 480px);
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 3rem max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad))) 1rem;
+      scroll-padding-inline: max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad)));
+      scrollbar-width: none;
+    }
+
+    .rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+      scroll-snap-align: start;
+    }
+
+    .card-media {
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: var(--line);
+    }
+
+    .card-media img {
+      transition: transform 1.4s var(--ease);
+    }
+
+    .card:hover .card-media img {
+      transform: scale(1.04);
+    }
+
+    .card .label {
+      margin: 1.25rem 0 0.4rem;
+      display: block;
+    }
+
+    .card h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-top: 0.4rem;
+    }
+
+    /* =====================================================================
+       8. QUY TRÌNH — khối tối
+       ===================================================================== */
+    .approach {
+      background: var(--dark);
+      color: #e9e6dd;
+      padding: clamp(5rem, 10vw, 8rem) 0;
+    }
+
+    .approach .label {
+      color: #a6a294;
+    }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(2rem, 4vw, 4rem);
+      margin-top: 4rem;
+    }
+
+    .step {
+      border-top: 1px solid #4a4b43;
+      padding-top: 1.75rem;
+    }
+
+    .step .serif {
+      font-size: 3.4rem;
+      line-height: 1;
+      color: #b9a983;
+    }
+
+    .step h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.7rem;
+      margin: 1.25rem 0 0.75rem;
+    }
+
+    .step p {
+      color: #b5b2a7;
+      font-size: 0.95rem;
+    }
+
+    .approach h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      line-height: 1.1;
+      max-width: 18ch;
+      margin-top: 1.5rem;
+    }
+
+    /* =====================================================================
+       9. ẢNH TRÀN VIỀN + TRÍCH DẪN
+       ===================================================================== */
+    .bleed {
+      position: relative;
+      height: min(88vh, 820px);
+      overflow: hidden;
+    }
+
+    .bleed::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20, 20, 18, 0.75), rgba(20, 20, 18, 0.1) 60%);
+    }
+
+    .bleed blockquote {
+      position: absolute;
+      left: var(--pad);
+      bottom: clamp(2rem, 6vw, 5rem);
+      z-index: 1;
+      color: #fff;
+      max-width: 28ch;
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.6vw, 3rem);
+      line-height: 1.2;
+    }
+
+    .bleed cite {
+      display: block;
+      margin-top: 1.25rem;
+      font-family: var(--sans);
+      font-style: normal;
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    /* =====================================================================
+       10. LIÊN HỆ
+       ===================================================================== */
+    .contact {
+      padding: clamp(5rem, 10vw, 8rem) 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 8vw, 8rem);
+    }
+
+    .contact h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      line-height: 1.05;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .contact dl {
+      display: grid;
+      grid-template-columns: 7rem 1fr;
+      gap: 1rem 1.5rem;
+      font-size: 0.92rem;
+      margin-top: 3rem;
+    }
+
+    .contact dt {
+      color: var(--ink-soft);
+    }
+
+    .form {
+      display: grid;
+      gap: 1.75rem;
+      align-content: start;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      font: inherit;
+      color: inherit;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      padding: 0.6rem 0;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--ink);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 6rem;
+    }
+
+    .btn {
+      justify-self: start;
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      padding: 1rem 2.4rem;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      cursor: pointer;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    .btn:hover {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    /* =====================================================================
+       11. FOOTER
+       ===================================================================== */
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 4rem 0 2.5rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .footer h4 {
+      font-weight: 500;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1.1rem;
+    }
+
+    .footer ul {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .footer ul a {
+      opacity: 0.8;
+    }
+
+    .footer ul a:hover {
+      opacity: 1;
+    }
+
+    .footer-legal {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+    }
+
+    .footer-mark {
+      font-family: var(--serif);
+      font-size: clamp(4rem, 16vw, 14rem);
+      line-height: 0.85;
+      letter-spacing: 0.02em;
+      margin-top: 3rem;
+      color: var(--ink);
+    }
+
+    /* =====================================================================
+       12. RESPONSIVE
+       ===================================================================== */
+    @media (max-width: 900px) {
+
+      .nav,
+      .header-right .hide-sm {
+        display: none;
+      }
+
+      .header-inner {
+        grid-template-columns: auto 1fr;
+      }
+
+      .header-right {
+        grid-column: 2;
+      }
+
+      .hero-grid,
+      .contact-grid,
+      .approach-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service {
+        grid-template-columns: 3rem 1fr;
+      }
+
+      .service p,
+      .service ul {
+        grid-column: 2;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .reveal,
+      .hero-media img {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- THANH THÔNG BÁO -->
+  <div class="topbar">Tư vấn & Phát triển Thương hiệu — Hà Nội, Việt Nam</div>
+
+  <!-- ===================================================================
+       HEADER
+       =================================================================== -->
+  <header class="header" id="header">
+    <div class="wrap header-inner">
+      <ul class="nav">
+        <li><a href="#services">Dịch vụ</a></li>
+        <li><a href="#work">Dự án</a></li>
+        <li><a href="#approach">Cách chúng tôi làm</a></li>
+      </ul>
+      <a href="#" class="wordmark">C—STAR</a>
+      <div class="header-right">
+        <a href="tel:02432000688" class="hide-sm">024 3200 0688</a>
+        <a href="#contact" class="link">Liên hệ</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================================================================
+         SECTION 1: HERO
+         =================================================================== -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <span class="label">Brand Consultation & Development</span>
+          <h1>Xây dựng thương hiệu,<br /><em>Tổ chức sự kiện.</em></h1>
+          <p class="hero-lede">
+            C-Star là công ty tư vấn và phát triển thương hiệu tại Hà Nội. Chúng tôi làm chiến lược,
+            thiết kế nhận diện, tổ chức sự kiện và sản xuất truyền thông cho doanh nghiệp.
+          </p>
+          <a href="#services" class="link">Khám phá dịch vụ <span aria-hidden="true">→</span></a>
+        </div>
+
+        <figure class="reveal">
+          <div class="hero-media reveal">
+            <!-- THAY ẢNH: ảnh chủ đạo của C-Star (tỷ lệ 4:5) -->
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1100&q=80"
+              alt="Không gian làm việc" />
+          </div>
+          <figcaption class="hero-caption">
+            <span>Hà Nội</span>
+            <span>Thành lập 2022</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: TUYÊN NGÔN
+         =================================================================== -->
+    <section class="statement">
+      <div class="wrap reveal">
+        <span class="label">Về C-Star</span>
+        <p>Một đầu mối cho toàn bộ công việc thương hiệu, từ nghiên cứu ban đầu đến ngày ra mắt.</p>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 3: DỊCH VỤ
+         =================================================================== -->
+    <section class="services" id="services">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2>Dịch vụ</h2>
+          <span class="label">04 lĩnh vực</span>
+        </div>
+
+        <article class="service reveal">
+          <span class="service-no">01</span>
+          <h3>Chiến lược<br />thương hiệu</h3>
+          <p>Nghiên cứu thị trường và khách hàng để xác định định vị, thông điệp và kế hoạch triển khai.</p>
+          <ul>
+            <li>Nghiên cứu thị trường</li>
+            <li>Định vị & giá trị cốt lõi</li>
+            <li>Câu chuyện thương hiệu</li>
+          </ul>
+        </article>
+
+        <article class="service reveal">
+          <span class="service-no">02</span>
+          <h3>Nhận diện<br />& thiết kế</h3>
+          <p>Thiết kế logo, bộ nhận diện và quy chuẩn sử dụng để thương hiệu hiển thị thống nhất ở mọi nơi.</p>
+          <ul>
+            <li>Logo & hệ thống nhận diện</li>
+            <li>Brand guidelines</li>
+            <li>Bao bì, ấn phẩm, POSM</li>
+          </ul>
+        </article>
+
+        <article class="service reveal">
+          <span class="service-no">03</span>
+          <h3>Sự kiện<br />& trải nghiệm</h3>
+          <p>Lên ý tưởng, sản xuất và vận hành sự kiện, từ hội nghị doanh nghiệp đến chương trình ngoài trời.</p>
+          <ul>
+            <li>Lễ hội & sự kiện ngoài trời</li>
+            <li>Ra mắt sản phẩm</li>
+            <li>Brand activation</li>
+          </ul>
+        </article>
+
+        <article class="service reveal">
+          <span class="service-no">04</span>
+          <h3>Truyền thông<br />& sản xuất</h3>
+          <p>Sản xuất video, nội dung và quảng cáo; lên kế hoạch phân phối và báo cáo kết quả.</p>
+          <ul>
+            <li>TVC & video</li>
+            <li>Truyền thông số</li>
+            <li>Quảng cáo & in ấn</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 4: DỰ ÁN (dữ liệu mẫu — thay bằng dự án thật của C-Star)
+         =================================================================== -->
+    <section class="work" id="work">
+      <div class="wrap section-head reveal">
+        <h2>Dự án chọn lọc</h2>
+        <span class="label">Kéo ngang →</span>
+      </div>
+
+      <div class="rail">
+        <article class="card">
+          <div class="card-media"><img
+              src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=900&q=80"
+              alt="" /></div>
+          <span class="label">Sự kiện — 2026</span>
+          <h3>Tên dự án lễ hội</h3>
+          <p>Mô tả ngắn một dòng về quy mô và kết quả.</p>
+        </article>
+        <article class="card">
+          <div class="card-media"><img
+              src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=900&q=80"
+              alt="" /></div>
+          <span class="label">Nhận diện — 2025</span>
+          <h3>Tên dự án nhận diện</h3>
+          <p>Mô tả ngắn một dòng về quy mô và kết quả.</p>
+        </article>
+        <article class="card">
+          <div class="card-media"><img
+              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=80"
+              alt="" /></div>
+          <span class="label">Hội nghị — 2025</span>
+          <h3>Tên dự án hội nghị</h3>
+          <p>Mô tả ngắn một dòng về quy mô và kết quả.</p>
+        </article>
+        <article class="card">
+          <div class="card-media"><img
+              src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=900&q=80"
+              alt="" /></div>
+          <span class="label">Truyền thông — 2024</span>
+          <h3>Tên chiến dịch</h3>
+          <p>Mô tả ngắn một dòng về quy mô và kết quả.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 5: CÁCH CHÚNG TÔI LÀM
+         =================================================================== -->
+    <section class="approach" id="approach">
+      <div class="wrap">
+        <span class="label reveal">Cách chúng tôi làm</span>
+        <h2 class="reveal">Quy trình rõ ràng, có mốc thời gian và báo cáo cụ thể.</h2>
+
+        <div class="approach-grid">
+          <div class="step reveal">
+            <span class="serif">i.</span>
+            <h3>Tìm hiểu</h3>
+            <p>Trao đổi với doanh nghiệp, thu thập thông tin về sản phẩm, khách hàng và đối thủ.</p>
+          </div>
+          <div class="step reveal">
+            <span class="serif">ii.</span>
+            <h3>Đề xuất</h3>
+            <p>Trình bày phương án, ngân sách và tiến độ. Điều chỉnh cho tới khi hai bên thống nhất.</p>
+          </div>
+          <div class="step reveal">
+            <span class="serif">iii.</span>
+            <h3>Triển khai</h3>
+            <p>Thực hiện theo kế hoạch đã duyệt, cập nhật tiến độ định kỳ và tổng kết khi kết thúc.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 6: ẢNH TRÀN VIỀN
+         =================================================================== -->
+    <section class="bleed">
+      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=2000&q=80" alt="" />
+      <blockquote class="reveal">
+        Chiến lược · Nhận diện · Sự kiện · Truyền thông
+        <cite>Dịch vụ của C-Star</cite>
+      </blockquote>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 7: LIÊN HỆ
+         =================================================================== -->
+    <section class="contact" id="contact">
+      <div class="wrap contact-grid">
+        <div class="reveal">
+          <span class="label">Liên hệ</span>
+          <h2>Liên hệ<br />với C-Star.</h2>
+          <p style="color: var(--ink-soft); max-width: 28rem;">Gửi thông tin về dự án của bạn, chúng tôi sẽ liên hệ lại
+            để trao đổi chi tiết.</p>
+          <dl>
+            <dt>Địa chỉ</dt>
+            <dd>B11 ngõ Trại Găng, phố Bạch Mai,<br />Hai Bà Trưng, Hà Nội</dd>
+            <dt>Điện thoại</dt>
+            <dd><a href="tel:02432000688">024 3200 0688</a></dd>
+            <dt>Email</dt>
+            <dd><a href="mailto:contact@c-star.vn">contact@c-star.vn</a></dd>
+          </dl>
+        </div>
+
+        <form class="form reveal"
+          onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Đã gửi — cảm ơn bạn';">
+          <div class="field"><label class="label" for="f-name">Họ tên</label><input id="f-name" required /></div>
+          <div class="field"><label class="label" for="f-email">Email</label><input id="f-email" type="email"
+              required /></div>
+          <div class="field">
+            <label class="label" for="f-topic">Bạn quan tâm</label>
+            <select id="f-topic">
+              <option>Chiến lược thương hiệu</option>
+              <option>Nhận diện & thiết kế</option>
+              <option>Sự kiện & trải nghiệm</option>
+              <option>Truyền thông & sản xuất</option>
+            </select>
+          </div>
+          <div class="field"><label class="label" for="f-msg">Lời nhắn</label><textarea id="f-msg"></textarea></div>
+          <button class="btn" type="submit">Gửi lời nhắn</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================================
+       FOOTER
+       =================================================================== -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <h4>C-Star</h4>
+          <p style="max-width: 24rem; color: var(--ink-soft);">Công ty Cổ phần Tư vấn & Phát triển Thương hiệu C-Star.
+          </p>
+        </div>
+        <div>
+          <h4>Dịch vụ</h4>
+          <ul>
+            <li><a href="#services">Chiến lược</a></li>
+            <li><a href="#services">Nhận diện</a></li>
+            <li><a href="#services">Sự kiện</a></li>
+            <li><a href="#services">Truyền thông</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Công ty</h4>
+          <ul>
+            <li><a href="#work">Dự án</a></li>
+            <li><a href="#approach">Cách chúng tôi làm</a></li>
+            <li><a href="#contact">Tuyển dụng</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Theo dõi</h4>
+          <ul>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-mark" aria-hidden="true">C—Star</div>
+
+      <div class="footer-legal">
+        <span>© 2026 Công ty Cổ phần Tư vấn & Phát triển Thương hiệu C-Star (C-STAR.,JSC)</span>
+        <span>MST 0110120839 · B11 ngõ Trại Găng, Bạch Mai, Hai Bà Trưng, Hà Nội</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Viền header khi cuộn
+    const header = document.getElementById('header');
+    addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 8), { passive: true });
+
+    // Hiện dần khi phần tử vào khung nhìn
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  </script>
+</body>
+
+</html>
