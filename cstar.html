@@ -1,29 +1,41 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>C-STAR — Công ty Cổ phần Tư vấn & Phát triển Thương hiệu C-Star</title>
-  <meta name="description" content="C-STAR — đối tác tư vấn chiến lược và phát triển thương hiệu cho doanh nghiệp, tập đoàn và tổ chức. Kiến tạo, lan tỏa và gia tăng giá trị thương hiệu." />
+  <meta name="description"
+    content="C-STAR — đối tác tư vấn chiến lược và phát triển thương hiệu cho doanh nghiệp, tập đoàn và tổ chức. Kiến tạo, lan tỏa và gia tăng giá trị thương hiệu." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Cormorant Garamond (tiêu đề) + Inter (nội dung). Cả hai hỗ trợ tiếng Việt. -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet" />
 
   <style>
     /* =====================================================================
        1. TÙY BIẾN NHANH — màu lấy từ logo & hồ sơ năng lực C-STAR
        ===================================================================== */
     :root {
-      --paper: #f6f4ef;      /* nền giấy ấm */
-      --paper-2: #ece8df;    /* nền phụ */
-      --ink: #1d1b1a;        /* chữ chính */
-      --ink-soft: #625e58;   /* chữ phụ */
-      --line: #d8d3c8;       /* đường kẻ mảnh */
-      --plum: #8c2c5a;       /* tím mận — màu khối trong hồ sơ năng lực */
-      --gold: #e6ad3a;       /* vàng — màu chữ logo */
-      --dark: #2a1a22;       /* khối tối ánh mận */
+      --paper: #f6f4ef;
+      /* nền giấy ấm */
+      --paper-2: #ece8df;
+      /* nền phụ */
+      --ink: #1d1b1a;
+      /* chữ chính */
+      --ink-soft: #625e58;
+      /* chữ phụ */
+      --line: #d8d3c8;
+      /* đường kẻ mảnh */
+      --plum: #8c2c5a;
+      /* tím mận — màu khối trong hồ sơ năng lực */
+      --gold: #e6ad3a;
+      /* vàng — màu chữ logo */
+      --dark: #2a1a22;
+      /* khối tối ánh mận */
 
       --serif: 'Cormorant Garamond', Georgia, serif;
       --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -36,54 +48,158 @@
     /* =====================================================================
        2. NỀN TẢNG
        ===================================================================== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-    body { font-family: var(--sans); font-weight: 300; font-size: 16px; line-height: 1.7; color: var(--ink); background: var(--paper); }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--pad); }
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    .label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); }
+    body {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin-inline: auto;
+      padding-inline: var(--pad);
+    }
+
+    .label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
 
     .link {
-      display: inline-flex; gap: 0.6rem; align-items: center;
-      font-size: 0.9rem; font-weight: 400; padding-bottom: 4px;
+      display: inline-flex;
+      gap: 0.6rem;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding-bottom: 4px;
       background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
       transition: background-size 0.5s var(--ease);
     }
-    .link:hover { background-size: 0% 1px; background-position: 100% 100%; }
 
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1.1s var(--ease), transform 1.1s var(--ease); }
-    .reveal.in { opacity: 1; transform: none; }
+    .link:hover {
+      background-size: 0% 1px;
+      background-position: 100% 100%;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1.1s var(--ease), transform 1.1s var(--ease);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
 
     .section-head {
-      display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
-      padding-bottom: 1.5rem; border-bottom: 1px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--ink);
     }
-    .section-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3.5vw, 2.8rem); line-height: 1.1; }
+
+    .section-head h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      line-height: 1.1;
+    }
 
     /* =====================================================================
        3. HEADER
        ===================================================================== */
-    .topbar { text-align: center; font-size: 0.75rem; letter-spacing: 0.04em; padding: 0.55rem var(--pad); background: var(--plum); color: #f3e6ec; }
+    .topbar {
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      padding: 0.55rem var(--pad);
+      background: var(--plum);
+      color: #f3e6ec;
+    }
 
     .header {
-      position: sticky; top: 0; z-index: 50;
+      position: sticky;
+      top: 0;
+      z-index: 50;
       background: rgba(246, 244, 239, 0.92);
       backdrop-filter: saturate(160%) blur(14px);
-      border-bottom: 1px solid transparent; transition: border-color 0.4s;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s;
     }
-    .header.scrolled { border-color: var(--line); }
-    .header-inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 72px; }
 
-    .nav { display: flex; gap: 2rem; list-style: none; font-size: 0.85rem; }
-    .nav a { opacity: 0.75; transition: opacity 0.3s; }
-    .nav a:hover { opacity: 1; }
+    .header.scrolled {
+      border-color: var(--line);
+    }
 
-    .logo img { height: 26px; width: auto; }
+    .header-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 72px;
+    }
 
-    .header-right { justify-self: end; display: flex; gap: 1.75rem; align-items: center; font-size: 0.85rem; }
+    .nav {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      font-size: 0.85rem;
+    }
+
+    .nav a {
+      opacity: 0.75;
+      transition: opacity 0.3s;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .logo img {
+      height: 26px;
+      width: auto;
+    }
+
+    .header-right {
+      justify-self: end;
+      display: flex;
+      gap: 1.75rem;
+      align-items: center;
+      font-size: 0.85rem;
+    }
 
     /* =====================================================================
        4. HERO — SLIDER SỰ KIỆN TRÀN TOÀN MÀN HÌNH ĐẦU TRANG
@@ -132,12 +248,10 @@
       position: absolute;
       inset: 0;
       padding: clamp(2rem, 5vw, 4.5rem) var(--pad);
-      background: linear-gradient(
-        to top,
-        rgba(16, 10, 14, 0.86) 0%,
-        rgba(16, 10, 14, 0.32) 38%,
-        transparent 68%
-      );
+      background: linear-gradient(to top,
+          rgba(16, 10, 14, 0.86) 0%,
+          rgba(16, 10, 14, 0.32) 38%,
+          transparent 68%);
       color: #fff;
       display: flex;
       flex-direction: column;
@@ -190,8 +304,13 @@
       transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
     }
 
-    .slider-side-btn.prev { left: clamp(1rem, 2.5vw, 2.5rem); }
-    .slider-side-btn.next { right: clamp(1rem, 2.5vw, 2.5rem); }
+    .slider-side-btn.prev {
+      left: clamp(1rem, 2.5vw, 2.5rem);
+    }
+
+    .slider-side-btn.next {
+      right: clamp(1rem, 2.5vw, 2.5rem);
+    }
 
     .slider-side-btn svg {
       width: 20px;
@@ -209,218 +328,641 @@
     }
 
     /* KHỐI TUYÊN NGÔN THƯƠNG HIỆU NGAY DƯỚI SLIDER */
-    .hero { padding: clamp(4rem, 8vw, 6.5rem) 0 2rem; position: relative; overflow: hidden; }
+    .hero {
+      padding: clamp(4rem, 8vw, 6.5rem) 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
 
     .hero-mark {
-      position: absolute; right: calc(var(--pad) * -1); top: clamp(1rem, 4vw, 3rem);
-      width: clamp(180px, 24vw, 340px); height: auto; opacity: 0.9; pointer-events: none;
+      position: absolute;
+      right: calc(var(--pad) * -1);
+      top: clamp(1rem, 4vw, 3rem);
+      width: clamp(180px, 24vw, 340px);
+      height: auto;
+      opacity: 0.9;
+      pointer-events: none;
     }
 
     .hero h1 {
-      font-family: var(--serif); font-weight: 400;
-      font-size: clamp(2.4rem, 7.1vw, 6.8rem); line-height: 1.02; letter-spacing: -0.02em;
-      margin: 1.5rem 0 2.5rem; max-width: none; position: relative;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 7.1vw, 6.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin: 1.5rem 0 2.5rem;
+      max-width: none;
+      position: relative;
     }
-    .hero h1 em { font-style: italic; color: var(--plum); }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--plum);
+    }
 
     .hero-meta {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end;
-      padding-bottom: clamp(2rem, 4vw, 3rem); border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: end;
+      padding-bottom: clamp(2rem, 4vw, 3rem);
+      border-bottom: 1px solid var(--line);
     }
-    .hero-meta p { color: var(--ink-soft); max-width: 34rem; }
-    .hero-meta .link { justify-self: end; }
+
+    .hero-meta p {
+      color: var(--ink-soft);
+      max-width: 34rem;
+    }
+
+    .hero-meta .link {
+      justify-self: end;
+    }
 
     /* =====================================================================
        5. VỀ CHÚNG TÔI
        ===================================================================== */
-    .about { padding: clamp(5rem, 11vw, 9rem) 0; }
-    .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(2rem, 6vw, 6rem); }
-    .about blockquote {
-      font-family: var(--serif); font-size: clamp(1.8rem, 3.2vw, 2.8rem); line-height: 1.22; margin-bottom: 2.5rem;
+    .about {
+      padding: clamp(5rem, 11vw, 9rem) 0;
     }
-    .about p { color: var(--ink-soft); max-width: 40rem; }
-    .about p + p { margin-top: 1.2rem; }
 
-    .facts { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 3.5rem; border-top: 1px solid var(--line); }
-    .fact { padding: 1.5rem 1.5rem 0 0; }
-    .fact strong { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 1; color: var(--plum); }
-    .fact span { font-size: 0.85rem; color: var(--ink-soft); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: clamp(2rem, 6vw, 6rem);
+    }
+
+    .about blockquote {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+      line-height: 1.22;
+      margin-bottom: 2.5rem;
+    }
+
+    .about p {
+      color: var(--ink-soft);
+      max-width: 40rem;
+    }
+
+    .about p+p {
+      margin-top: 1.2rem;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 3.5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .fact {
+      padding: 1.5rem 1.5rem 0 0;
+    }
+
+    .fact strong {
+      display: block;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      line-height: 1;
+      color: var(--plum);
+    }
+
+    .fact span {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
 
     /* =====================================================================
        6. LĨNH VỰC (3 trụ cột theo hồ sơ năng lực)
        ===================================================================== */
-    .services { padding-bottom: clamp(5rem, 10vw, 8rem); }
+    .services {
+      padding-bottom: clamp(5rem, 10vw, 8rem);
+    }
 
     .service {
-      display: grid; grid-template-columns: 5rem 1.1fr 1.5fr 1fr; gap: 2rem;
-      padding: 2.6rem 1.25rem; margin-inline: -1.25rem; border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 5rem 1.1fr 1.5fr 1fr;
+      gap: 2rem;
+      padding: 2.6rem 1.25rem;
+      margin-inline: -1.25rem;
+      border-bottom: 1px solid var(--line);
       transition: background 0.4s var(--ease);
     }
-    .service:hover { background: var(--paper-2); }
-    .service-no { font-family: var(--serif); font-size: 1.1rem; color: var(--plum); }
-    .service h3 { font-family: var(--serif); font-weight: 400; font-size: 2rem; line-height: 1.1; }
-    .service h3 small { display: block; font-family: var(--sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-top: 0.6rem; }
-    .service p { color: var(--ink-soft); font-size: 0.95rem; }
-    .service ul { list-style: none; font-size: 0.85rem; color: var(--ink-soft); }
-    .service li { padding: 0.15rem 0; }
+
+    .service:hover {
+      background: var(--paper-2);
+    }
+
+    .service-no {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--plum);
+    }
+
+    .service h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.1;
+    }
+
+    .service h3 small {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 0.6rem;
+    }
+
+    .service p {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+    }
+
+    .service ul {
+      list-style: none;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+    }
+
+    .service li {
+      padding: 0.15rem 0;
+    }
 
     /* =====================================================================
        7. DỰ ÁN — dải ảnh cuộn ngang
        ===================================================================== */
-    .work { padding: clamp(5rem, 10vw, 8rem) 0; background: var(--paper-2); }
+    .work {
+      padding: clamp(5rem, 10vw, 8rem) 0;
+      background: var(--paper-2);
+    }
 
     .rail {
-      display: grid; grid-auto-flow: column; grid-auto-columns: clamp(290px, 36vw, 520px); gap: 1.5rem;
-      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: clamp(290px, 36vw, 520px);
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
       padding: 3rem max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad))) 1rem;
       scroll-padding-inline: max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad)));
     }
-    .rail::-webkit-scrollbar { display: none; }
 
-    .card { scroll-snap-align: start; }
-    .card-media { aspect-ratio: 3 / 2; overflow: hidden; background: var(--line); }
-    .card-media img { transition: transform 1.4s var(--ease); }
-    .card:hover .card-media img { transform: scale(1.04); }
-    .card .label { margin: 1.25rem 0 0.4rem; display: block; }
-    .card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.55rem; line-height: 1.2; }
-    .card p { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.35rem; }
-
-    .rail-nav { display: flex; gap: 0.5rem; }
-    .rail-nav button {
-      width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--ink);
-      background: transparent; color: var(--ink); cursor: pointer; font-size: 1rem; transition: background 0.3s, color 0.3s;
+    .rail::-webkit-scrollbar {
+      display: none;
     }
-    .rail-nav button:hover { background: var(--ink); color: var(--paper); }
+
+    .card {
+      scroll-snap-align: start;
+    }
+
+    .card-media {
+      aspect-ratio: 3 / 2;
+      overflow: hidden;
+      background: var(--line);
+    }
+
+    .card-media img {
+      transition: transform 1.4s var(--ease);
+    }
+
+    .card:hover .card-media img {
+      transform: scale(1.04);
+    }
+
+    .card .label {
+      margin: 1.25rem 0 0.4rem;
+      display: block;
+    }
+
+    .card h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.55rem;
+      line-height: 1.2;
+    }
+
+    .card p {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      margin-top: 0.35rem;
+    }
+
+    .rail-nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .rail-nav button {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--ink);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .rail-nav button:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
 
     /* =====================================================================
        8. KHÁCH HÀNG — LƯỚI LOGO ĐỐI TÁC (TRANG 3 HỒ SƠ NĂNG LỰC)
        ===================================================================== */
-    .clients { padding: clamp(5rem, 10vw, 8rem) 0; }
+    .clients {
+      padding: clamp(5rem, 10vw, 8rem) 0;
+    }
+
     .client-list {
-      list-style: none; margin-top: 3rem;
-      display: grid; grid-template-columns: repeat(5, 1fr);
+      list-style: none;
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
       border-top: 1px solid var(--line);
       border-left: 1px solid var(--line);
     }
+
     .client-list li {
-      display: flex; align-items: center; justify-content: center;
-      height: 132px; padding: 1.35rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 132px;
+      padding: 1.35rem 1.75rem;
       border-right: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
       background: #fff;
     }
+
     .client-list img {
-      width: auto; height: auto;
-      max-width: 165px; max-height: 74px;
+      width: auto;
+      height: auto;
+      max-width: 165px;
+      max-height: 74px;
       object-fit: contain;
       transition: transform 0.35s var(--ease);
     }
-    .client-list li:hover img { transform: scale(1.1); }
+
+    .client-list li:hover img {
+      transform: scale(1.1);
+    }
 
     /* =====================================================================
        9. CỘNG ĐỒNG & XÃ HỘI — khối tối
        ===================================================================== */
-    .community { background: var(--dark); color: #efe7ea; padding: clamp(5rem, 10vw, 8rem) 0; }
-    .community .label { color: #b9a4ad; }
-    .community h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 1.1; max-width: 20ch; margin-top: 1.5rem; }
-    .community-list { list-style: none; margin-top: 4rem; border-top: 1px solid #4d3a43; }
-    .community-list li {
-      display: grid; grid-template-columns: 1.6fr 1fr 8rem; gap: 2rem; align-items: baseline;
-      padding: 1.6rem 0; border-bottom: 1px solid #4d3a43;
+    .community {
+      background: var(--dark);
+      color: #efe7ea;
+      padding: clamp(5rem, 10vw, 8rem) 0;
     }
-    .community-list h3 { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; line-height: 1.2; }
-    .community-list span { font-size: 0.88rem; color: #c3b4ba; }
-    .community-list time { font-size: 0.85rem; color: var(--gold); text-align: right; }
+
+    .community .label {
+      color: #b9a4ad;
+    }
+
+    .community h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      line-height: 1.1;
+      max-width: 20ch;
+      margin-top: 1.5rem;
+    }
+
+    .community-list {
+      list-style: none;
+      margin-top: 4rem;
+      border-top: 1px solid #4d3a43;
+    }
+
+    .community-list li {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 8rem;
+      gap: 2rem;
+      align-items: baseline;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid #4d3a43;
+    }
+
+    .community-list h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .community-list span {
+      font-size: 0.88rem;
+      color: #c3b4ba;
+    }
+
+    .community-list time {
+      font-size: 0.85rem;
+      color: var(--gold);
+      text-align: right;
+    }
 
     /* =====================================================================
        10. ẢNH TRÀN VIỀN (HIỆU ỨNG ZOOM KHI CUỘN LÊN XUỐNG)
        ===================================================================== */
-    .bleed { position: relative; height: min(82vh, 780px); overflow: hidden; }
+    .bleed {
+      position: relative;
+      height: min(82vh, 780px);
+      overflow: hidden;
+    }
+
     .bleed img {
-      width: 100%; height: 100%; object-fit: cover;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       transform-origin: center center;
       will-change: transform;
       transition: transform 0.08s linear;
     }
-    .bleed::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20, 12, 16, 0.85), rgba(20, 12, 16, 0.15) 70%); pointer-events: none; }
-    .bleed-text { position: absolute; left: var(--pad); right: var(--pad); bottom: clamp(2rem, 6vw, 5rem); z-index: 1; color: #fff; }
-    .bleed-text p { font-family: var(--serif); font-size: clamp(1.8rem, 3.6vw, 3rem); line-height: 1.2; max-width: 26ch; }
-    .bleed-text .label { color: rgba(255, 255, 255, 0.8); display: block; margin-top: 1.25rem; }
+
+    .bleed::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20, 12, 16, 0.85), rgba(20, 12, 16, 0.15) 70%);
+      pointer-events: none;
+    }
+
+    .bleed-text {
+      position: absolute;
+      left: var(--pad);
+      right: var(--pad);
+      bottom: clamp(2rem, 6vw, 5rem);
+      z-index: 1;
+      color: #fff;
+    }
+
+    .bleed-text p {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.6vw, 3rem);
+      line-height: 1.2;
+      max-width: 26ch;
+    }
+
+    .bleed-text .label {
+      color: rgba(255, 255, 255, 0.8);
+      display: block;
+      margin-top: 1.25rem;
+    }
 
     /* =====================================================================
        11. LIÊN HỆ
        ===================================================================== */
-    .contact { padding: clamp(5rem, 10vw, 8rem) 0; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem, 8vw, 8rem); }
-    .contact h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 4.5vw, 4rem); line-height: 1.05; margin: 1.5rem 0 2rem; }
-    .contact dl { display: grid; grid-template-columns: 7rem 1fr; gap: 1rem 1.5rem; font-size: 0.92rem; margin-top: 3rem; }
-    .contact dt { color: var(--ink-soft); }
-
-    .form { display: grid; gap: 1.75rem; align-content: start; }
-    .field { display: grid; gap: 0.4rem; }
-    .field input, .field textarea, .field select {
-      font: inherit; color: inherit; background: transparent; border: none;
-      border-bottom: 1px solid var(--line); padding: 0.6rem 0; outline: none; transition: border-color 0.3s;
+    .contact {
+      padding: clamp(5rem, 10vw, 8rem) 0;
     }
-    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--ink); }
-    .field textarea { resize: vertical; min-height: 6rem; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 8vw, 8rem);
+    }
+
+    .contact h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      line-height: 1.05;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .contact dl {
+      display: grid;
+      grid-template-columns: 7rem 1fr;
+      gap: 1rem 1.5rem;
+      font-size: 0.92rem;
+      margin-top: 3rem;
+    }
+
+    .contact dt {
+      color: var(--ink-soft);
+    }
+
+    .form {
+      display: grid;
+      gap: 1.75rem;
+      align-content: start;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      font: inherit;
+      color: inherit;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      padding: 0.6rem 0;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--ink);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 6rem;
+    }
 
     .btn {
-      justify-self: start; font: inherit; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.04em;
-      padding: 1rem 2.4rem; border: 1px solid var(--ink); background: var(--ink); color: var(--paper);
-      cursor: pointer; transition: background 0.4s, color 0.4s, border-color 0.4s;
+      justify-self: start;
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      padding: 1rem 2.4rem;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      cursor: pointer;
+      transition: background 0.4s, color 0.4s, border-color 0.4s;
     }
-    .btn:hover { background: var(--plum); border-color: var(--plum); }
+
+    .btn:hover {
+      background: var(--plum);
+      border-color: var(--plum);
+    }
 
     /* =====================================================================
        12. FOOTER
        ===================================================================== */
-    .footer { border-top: 1px solid var(--line); padding: 4rem 0 2.5rem; font-size: 0.85rem; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; }
-    .footer h4 { font-weight: 500; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.1rem; }
-    .footer ul { list-style: none; display: grid; gap: 0.5rem; }
-    .footer ul a { opacity: 0.8; }
-    .footer ul a:hover { opacity: 1; }
-    .footer-logo { margin-top: 4rem; }
-    .footer-logo img { width: min(100%, 720px); height: auto; }
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 4rem 0 2.5rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .footer h4 {
+      font-weight: 500;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 1.1rem;
+    }
+
+    .footer ul {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .footer ul a {
+      opacity: 0.8;
+    }
+
+    .footer ul a:hover {
+      opacity: 1;
+    }
+
+    .footer-logo {
+      margin-top: 4rem;
+    }
+
+    .footer-logo img {
+      width: min(100%, 720px);
+      height: auto;
+    }
+
     .footer-legal {
-      margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-      font-size: 0.75rem; color: var(--ink-soft);
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--ink-soft);
     }
 
     /* =====================================================================
        13. RESPONSIVE
        ===================================================================== */
     @media (max-width: 900px) {
-      .nav, .header-right .hide-sm { display: none; }
-      .header-inner { grid-template-columns: auto 1fr; }
-      .header-right { grid-column: 2; }
-      .hero-meta, .about-grid, .contact-grid { grid-template-columns: 1fr; }
-      .hero-meta .link { justify-self: start; }
-      .hero-media { aspect-ratio: 4 / 3; }
-      .hero-mark { opacity: 0.35; }
-      .service { grid-template-columns: 3rem 1fr; }
-      .service p, .service ul { grid-column: 2; }
-      .client-list { grid-template-columns: repeat(2, 1fr); }
-      .community-list li { grid-template-columns: 1fr; gap: 0.3rem; }
-      .community-list time { text-align: left; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
+
+      .nav,
+      .header-right .hide-sm {
+        display: none;
+      }
+
+      .header-inner {
+        grid-template-columns: auto 1fr;
+      }
+
+      .header-right {
+        grid-column: 2;
+      }
+
+      .hero-meta,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-meta .link {
+        justify-self: start;
+      }
+
+      .hero-media {
+        aspect-ratio: 4 / 3;
+      }
+
+      .hero-mark {
+        opacity: 0.35;
+      }
+
+      .service {
+        grid-template-columns: 3rem 1fr;
+      }
+
+      .service p,
+      .service ul {
+        grid-column: 2;
+      }
+
+      .client-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .community-list li {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+      }
+
+      .community-list time {
+        text-align: left;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 600px) {
-      .hero-showcase { height: auto; min-height: 0; aspect-ratio: 4 / 5; }
-      .hero-slide-overlay { padding: 2.5rem 1.25rem 2.25rem; }
-      .hero-slide-title { font-size: 1.5rem; }
-      .hero-slide-desc { display: none; }
-      .slider-side-btn { width: 42px; height: 42px; }
+      .hero-showcase {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 4 / 5;
+      }
+
+      .hero-slide-overlay {
+        padding: 2.5rem 1.25rem 2.25rem;
+      }
+
+      .hero-slide-title {
+        font-size: 1.5rem;
+      }
+
+      .hero-slide-desc {
+        display: none;
+      }
+
+      .slider-side-btn {
+        width: 42px;
+        height: 42px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .reveal, .hero-media img { transition: none; opacity: 1; transform: none; }
+
+      .reveal,
+      .hero-media img {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div class="topbar">Công ty Cổ phần Tư vấn & Phát triển Thương hiệu C-Star</div>
@@ -466,7 +1008,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Mega Concert · MobiFone</span>
             <h3 class="hero-slide-title">Đại nhạc hội Tri ân — Maximizing Life</h3>
-            <p class="hero-slide-desc">Lễ hội âm nhạc ngoài trời quy mô hàng nghìn khán giả, hiệu ứng pháo sáng & dàn nghệ sĩ hàng đầu.</p>
+            <p class="hero-slide-desc">Lễ hội âm nhạc ngoài trời quy mô hàng nghìn khán giả, hiệu ứng pháo sáng & dàn
+              nghệ sĩ hàng đầu.</p>
           </div>
         </div>
 
@@ -476,7 +1019,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Hòa nhạc nghệ thuật · PV GAS</span>
             <h3 class="hero-slide-title">Hành trình 35 năm Thắp lửa non sông — Fire Concert</h3>
-            <p class="hero-slide-desc">Chương trình hòa nhạc thính phòng đỉnh cao tại Nhà hát Lớn cùng dàn nhạc giao hưởng.</p>
+            <p class="hero-slide-desc">Chương trình hòa nhạc thính phòng đỉnh cao tại Nhà hát Lớn cùng dàn nhạc giao
+              hưởng.</p>
           </div>
         </div>
 
@@ -506,7 +1050,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Sự kiện thể thao · Hà Nội FC</span>
             <h3 class="hero-slide-title">Lễ xuất quân & Ra mắt áo đấu CLB Bóng đá Hà Nội</h3>
-            <p class="hero-slide-desc">Tổ chức họp báo, sân khấu ra mắt áo đấu và hiệu ứng màn hình mở cánh cửa biểu tượng.</p>
+            <p class="hero-slide-desc">Tổ chức họp báo, sân khấu ra mắt áo đấu và hiệu ứng màn hình mở cánh cửa biểu
+              tượng.</p>
           </div>
         </div>
 
@@ -516,7 +1061,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Chuỗi sự kiện 6 tỉnh thành · MobiFone 5G</span>
             <h3 class="hero-slide-title">Hội ngộ Anh tài — X2 Trải nghiệm</h3>
-            <p class="hero-slide-desc">Chương trình cảm ơn nhân viên hỗ trợ khách hàng tại Hà Nội, Hải Phòng, Đà Nẵng, TP.HCM, Cần Thơ, Đồng Nai.</p>
+            <p class="hero-slide-desc">Chương trình cảm ơn nhân viên hỗ trợ khách hàng tại Hà Nội, Hải Phòng, Đà Nẵng,
+              TP.HCM, Cần Thơ, Đồng Nai.</p>
           </div>
         </div>
 
@@ -526,7 +1072,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Lễ kỷ niệm 60 năm · Vinawind</span>
             <h3 class="hero-slide-title">Kế thừa giá trị — Kiến tạo tương lai</h3>
-            <p class="hero-slide-desc">Lễ kỷ niệm 60 năm thành lập Công ty Cổ phần Điện cơ Thống Nhất và tri ân cán bộ công nhân viên cống hiến.</p>
+            <p class="hero-slide-desc">Lễ kỷ niệm 60 năm thành lập Công ty Cổ phần Điện cơ Thống Nhất và tri ân cán bộ
+              công nhân viên cống hiến.</p>
           </div>
         </div>
 
@@ -536,7 +1083,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Lễ kỷ niệm 22 năm · CTIN</span>
             <h3 class="hero-slide-title">Bản hòa ca Sáng tạo — Tiếp lửa thành công</h3>
-            <p class="hero-slide-desc">Chuỗi hoạt động văn nghệ, gala và teambuilding kỷ niệm 22 năm cổ phần hóa CTIN.</p>
+            <p class="hero-slide-desc">Chuỗi hoạt động văn nghệ, gala và teambuilding kỷ niệm 22 năm cổ phần hóa CTIN.
+            </p>
           </div>
         </div>
 
@@ -546,7 +1094,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Hội nghị khoa học & Ra mắt · Caramind</span>
             <h3 class="hero-slide-title">Caramind Summit 05 — Giải pháp tái cấu trúc nền da</h3>
-            <p class="hero-slide-desc">Không gian triển lãm nghệ thuật, lễ ký kết đồng hành và hội thảo chuyên gia quy mô lớn.</p>
+            <p class="hero-slide-desc">Không gian triển lãm nghệ thuật, lễ ký kết đồng hành và hội thảo chuyên gia quy
+              mô lớn.</p>
           </div>
         </div>
 
@@ -556,7 +1105,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Sự kiện Văn hóa · Xã hội · MobiFone 5G</span>
             <h3 class="hero-slide-title">Trẩy hội Xuân Yên Tử (2023 – 2025)</h3>
-            <p class="hero-slide-desc">Không gian văn hóa truyền thống và hoạt động trải nghiệm thương hiệu tại Lễ hội Yên Tử.</p>
+            <p class="hero-slide-desc">Không gian văn hóa truyền thống và hoạt động trải nghiệm thương hiệu tại Lễ hội
+              Yên Tử.</p>
           </div>
         </div>
 
@@ -566,7 +1116,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Sự kiện Văn hóa · Chính trị · Xã hội</span>
             <h3 class="hero-slide-title">Vu Lan 2024 — Đạo hiếu & Dân tộc</h3>
-            <p class="hero-slide-desc">Chương trình nghệ thuật đặc biệt tôn vinh đạo hiếu và truyền thống dân tộc cùng Tạp chí Nghiên cứu Phật học.</p>
+            <p class="hero-slide-desc">Chương trình nghệ thuật đặc biệt tôn vinh đạo hiếu và truyền thống dân tộc cùng
+              Tạp chí Nghiên cứu Phật học.</p>
           </div>
         </div>
 
@@ -576,7 +1127,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Sự kiện Văn hóa · Chính trị · Xã hội</span>
             <h3 class="hero-slide-title">Tự hào Tổ quốc tôi — Viết tiếp câu chuyện tự hào</h3>
-            <p class="hero-slide-desc">Hành trình báo công tại các cột mốc chủ quyền Việt Nam trên đất liền và đêm Gala trao giải.</p>
+            <p class="hero-slide-desc">Hành trình báo công tại các cột mốc chủ quyền Việt Nam trên đất liền và đêm Gala
+              trao giải.</p>
           </div>
         </div>
 
@@ -586,7 +1138,8 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Kết nối Thương hiệu · Trách nhiệm Xã hội</span>
             <h3 class="hero-slide-title">Chương trình từ thiện — Tôi yêu đồng bào tôi</h3>
-            <p class="hero-slide-desc">Kết nối các doanh nghiệp và nhà hảo tâm hỗ trợ trẻ em nghèo vùng cao đón Tết (2023 – 2025).</p>
+            <p class="hero-slide-desc">Kết nối các doanh nghiệp và nhà hảo tâm hỗ trợ trẻ em nghèo vùng cao đón Tết
+              (2023 – 2025).</p>
           </div>
         </div>
 
@@ -596,17 +1149,22 @@
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Lễ hội · Sự kiện Cộng đồng · Gamuda Land</span>
             <h3 class="hero-slide-title">Ngày hội Đa dạng sinh học Gamuda (2023 – 2024)</h3>
-            <p class="hero-slide-desc">Không gian lễ hội xanh, triển lãm sinh thái và âm nhạc ngoài trời gắn kết cộng đồng.</p>
+            <p class="hero-slide-desc">Không gian lễ hội xanh, triển lãm sinh thái và âm nhạc ngoài trời gắn kết cộng
+              đồng.</p>
           </div>
         </div>
       </div>
 
       <!-- Hai nút chuyển ảnh ở 2 bên cạnh -->
       <button type="button" class="slider-side-btn prev" id="slidePrev" aria-label="Sự kiện trước">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
       </button>
       <button type="button" class="slider-side-btn next" id="slideNext" aria-label="Sự kiện tiếp theo">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
       </button>
     </section>
 
@@ -621,7 +1179,8 @@
           <h1>Xây dựng thương hiệu<br /><em>Tổ chức sự kiện.</em></h1>
         </div>
         <div class="hero-meta reveal">
-          <p>Đối tác tư vấn chiến lược và phát triển thương hiệu cho các doanh nghiệp, tập đoàn và tổ chức trong nền kinh tế Việt Nam.</p>
+          <p>Đối tác tư vấn chiến lược và phát triển thương hiệu cho các doanh nghiệp, tập đoàn và tổ chức trong nền
+            kinh tế Việt Nam.</p>
           <a href="#work" class="link">Xem dự án <span aria-hidden="true">→</span></a>
         </div>
       </div>
@@ -634,9 +1193,14 @@
       <div class="wrap about-grid">
         <span class="label reveal">Về chúng tôi</span>
         <div class="reveal">
-          <blockquote>Một thương hiệu bền vững không chỉ được tạo nên từ hình ảnh hay truyền thông, mà còn từ chiến lược đúng đắn và sự thấu hiểu thị trường.</blockquote>
-          <p>Trực thuộc một hệ sinh thái có hơn 15 năm kinh nghiệm trong lĩnh vực tiếp thị, truyền thông và xây dựng thương hiệu, C-STAR được thành lập năm 2022 với sứ mệnh trở thành đối tác tư vấn chiến lược và phát triển thương hiệu cho các doanh nghiệp, tập đoàn và tổ chức.</p>
-          <p>C-STAR kết hợp đội ngũ chuyên gia giàu kinh nghiệm thực tiễn với đội ngũ triển khai sáng tạo, mang đến giải pháp toàn diện dựa trên tư duy hệ thống, am hiểu thị trường và tinh thần đồng hành lâu dài cùng khách hàng.</p>
+          <blockquote>Một thương hiệu bền vững không chỉ được tạo nên từ hình ảnh hay truyền thông, mà còn từ chiến lược
+            đúng đắn và sự thấu hiểu thị trường.</blockquote>
+          <p>Trực thuộc một hệ sinh thái có hơn 15 năm kinh nghiệm trong lĩnh vực tiếp thị, truyền thông và xây dựng
+            thương hiệu, C-STAR được thành lập năm 2022 với sứ mệnh trở thành đối tác tư vấn chiến lược và phát triển
+            thương hiệu cho các doanh nghiệp, tập đoàn và tổ chức.</p>
+          <p>C-STAR kết hợp đội ngũ chuyên gia giàu kinh nghiệm thực tiễn với đội ngũ triển khai sáng tạo, mang đến giải
+            pháp toàn diện dựa trên tư duy hệ thống, am hiểu thị trường và tinh thần đồng hành lâu dài cùng khách hàng.
+          </p>
 
           <div class="facts">
             <div class="fact"><strong>15+</strong><span>năm kinh nghiệm của hệ sinh thái</span></div>
@@ -660,7 +1224,8 @@
         <article class="service reveal">
           <span class="service-no">01</span>
           <h3>Kiến tạo thương hiệu<small>Tư vấn thương hiệu</small></h3>
-          <p>Giải pháp tư vấn tổng thể từ nghiên cứu thị trường, chiến lược thương hiệu, hoạch định truyền thông, thiết kế nhận diện đến kế hoạch triển khai chi tiết.</p>
+          <p>Giải pháp tư vấn tổng thể từ nghiên cứu thị trường, chiến lược thương hiệu, hoạch định truyền thông, thiết
+            kế nhận diện đến kế hoạch triển khai chi tiết.</p>
           <ul>
             <li>Nghiên cứu thị trường</li>
             <li>Câu chuyện & hình ảnh truyền thông</li>
@@ -674,7 +1239,8 @@
         <article class="service reveal">
           <span class="service-no">02</span>
           <h3>Lan tỏa thương hiệu<small>Phát triển thương hiệu</small></h3>
-          <p>Truyền thông tích hợp đưa chiến lược thương hiệu đến gần hơn với khách hàng và cộng đồng, thực hiện theo tiêu chuẩn chuyên nghiệp.</p>
+          <p>Truyền thông tích hợp đưa chiến lược thương hiệu đến gần hơn với khách hàng và cộng đồng, thực hiện theo
+            tiêu chuẩn chuyên nghiệp.</p>
           <ul>
             <li>Tổ chức sự kiện</li>
             <li>Phim / ảnh doanh nghiệp, TVC, TV show</li>
@@ -687,7 +1253,8 @@
         <article class="service reveal">
           <span class="service-no">03</span>
           <h3>Gia tăng giá trị<small>Kết nối & trách nhiệm xã hội</small></h3>
-          <p>Tạo dựng giá trị lâu dài, mở rộng hệ sinh thái hợp tác cùng doanh nghiệp lớn, cơ quan quản lý nhà nước và các nền tảng truyền thông.</p>
+          <p>Tạo dựng giá trị lâu dài, mở rộng hệ sinh thái hợp tác cùng doanh nghiệp lớn, cơ quan quản lý nhà nước và
+            các nền tảng truyền thông.</p>
           <ul>
             <li>Liên kết thương hiệu</li>
             <li>Tư vấn trách nhiệm xã hội (CSR)</li>
@@ -716,13 +1283,15 @@
           <h3>Hành trình 35 năm Thắp lửa non sông — Đêm nhạc Fire Concert</h3>
         </article>
         <article class="card">
-          <div class="card-media"><img src="assets/w-vietcombank.jpg" alt="Tìm kiếm tài năng Vietcombank" loading="lazy" /></div>
+          <div class="card-media"><img src="assets/w-vietcombank.jpg" alt="Tìm kiếm tài năng Vietcombank"
+              loading="lazy" /></div>
           <span class="label">Vietcombank — 2023</span>
           <h3>Tìm kiếm tài năng Vietcombank</h3>
           <p>Chuỗi hoạt động kỷ niệm 60 năm thành lập ngân hàng.</p>
         </article>
         <article class="card">
-          <div class="card-media"><img src="assets/w-mobifone.jpg" alt="Maximizing Life MobiFone" loading="lazy" /></div>
+          <div class="card-media"><img src="assets/w-mobifone.jpg" alt="Maximizing Life MobiFone" loading="lazy" />
+          </div>
           <span class="label">MobiFone — Sự kiện</span>
           <h3>Maximizing Life — Chương trình tri ân khách hàng</h3>
         </article>
@@ -738,7 +1307,8 @@
           <p>Kế thừa giá trị — Kiến tạo tương lai.</p>
         </article>
         <article class="card">
-          <div class="card-media"><img src="assets/w-hanoifc.jpg" alt="Lễ xuất quân CLB Bóng đá Hà Nội" loading="lazy" /></div>
+          <div class="card-media"><img src="assets/w-hanoifc.jpg" alt="Lễ xuất quân CLB Bóng đá Hà Nội"
+              loading="lazy" /></div>
           <span class="label">Hà Nội FC — Sự kiện</span>
           <h3>Lễ xuất quân CLB Bóng đá Hà Nội</h3>
         </article>
@@ -759,7 +1329,8 @@
           <h3>Điều phi thường giản dị</h3>
         </article>
         <article class="card">
-          <div class="card-media"><img src="assets/w-pvndb.jpg" alt="Nhận diện thương hiệu PVNDB" loading="lazy" /></div>
+          <div class="card-media"><img src="assets/w-pvndb.jpg" alt="Nhận diện thương hiệu PVNDB" loading="lazy" />
+          </div>
           <span class="label">PVNDB — Nhận diện</span>
           <h3>Xây dựng bộ nhận diện & lễ ra mắt thương hiệu mới</h3>
         </article>
@@ -820,12 +1391,27 @@
         <h2 class="reveal">Những dự án tạo tác động tích cực và bền vững cho xã hội.</h2>
 
         <ul class="community-list">
-          <li class="reveal"><h3>Tôi yêu đồng bào tôi</h3><span>Kết nối doanh nghiệp hỗ trợ trẻ em nghèo vùng cao đón Tết</span><time>2023 – 2025</time></li>
-          <li class="reveal"><h3>Tự hào Tổ quốc tôi</h3><span>Hành trình báo công tại các cột mốc chủ quyền & cuộc vận động sáng tác “Viết tiếp câu chuyện tự hào”</span><time></time></li>
-          <li class="reveal"><h3>Vu Lan — Đạo hiếu & Dân tộc</h3><span>Cùng Tạp chí Nghiên cứu Phật học</span><time>2024</time></li>
-          <li class="reveal"><h3>Lễ hội Yên Tử</h3><span>Cùng MobiFone</span><time>2023 – 2025</time></li>
-          <li class="reveal"><h3>Ngày hội Đa dạng sinh học</h3><span>Cùng Gamuda Land</span><time>2023 – 2024</time></li>
-          <li class="reveal"><h3>Cảm ơn nhân viên hỗ trợ khách hàng</h3><span>MobiFone — Hà Nội, Hải Phòng, Đà Nẵng, TP.HCM, Cần Thơ, Đồng Nai</span><time>2023 – 2024</time></li>
+          <li class="reveal">
+            <h3>Tôi yêu đồng bào tôi</h3><span>Kết nối doanh nghiệp hỗ trợ trẻ em nghèo vùng cao đón
+              Tết</span><time>2023 – 2025</time>
+          </li>
+          <li class="reveal">
+            <h3>Tự hào Tổ quốc tôi</h3><span>Hành trình báo công tại các cột mốc chủ quyền & cuộc vận động sáng tác
+              “Viết tiếp câu chuyện tự hào”</span><time></time>
+          </li>
+          <li class="reveal">
+            <h3>Vu Lan — Đạo hiếu & Dân tộc</h3><span>Cùng Tạp chí Nghiên cứu Phật học</span><time>2024</time>
+          </li>
+          <li class="reveal">
+            <h3>Lễ hội Yên Tử</h3><span>Cùng MobiFone</span><time>2023 – 2025</time>
+          </li>
+          <li class="reveal">
+            <h3>Ngày hội Đa dạng sinh học</h3><span>Cùng Gamuda Land</span><time>2023 – 2024</time>
+          </li>
+          <li class="reveal">
+            <h3>Cảm ơn nhân viên hỗ trợ khách hàng</h3><span>MobiFone — Hà Nội, Hải Phòng, Đà Nẵng, TP.HCM, Cần Thơ,
+              Đồng Nai</span><time>2023 – 2024</time>
+          </li>
         </ul>
       </div>
     </section>
@@ -849,18 +1435,25 @@
         <div class="reveal">
           <span class="label">Liên hệ</span>
           <h2>Liên hệ<br />với C-STAR.</h2>
-          <p style="color: var(--ink-soft); max-width: 28rem;">Gửi thông tin về dự án của bạn, chúng tôi sẽ liên hệ lại để trao đổi chi tiết.</p>
+          <p style="color: var(--ink-soft); max-width: 28rem;">Gửi thông tin về dự án của bạn, chúng tôi sẽ liên hệ lại
+            để trao đổi chi tiết.</p>
           <dl>
-            <dt>Liên hệ</dt><dd>Ms. Cung Cẩm Tú</dd>
-            <dt>Điện thoại</dt><dd><a href="tel:0902088246">0902 088 246</a> · <a href="tel:02432000688">024 3200 0688</a></dd>
-            <dt>Email</dt><dd><a href="mailto:Tu.cung@c-star.vn">Tu.cung@c-star.vn</a></dd>
-            <dt>Địa chỉ</dt><dd>B11 ngõ Trại Găng, phố Bạch Mai,<br />Hai Bà Trưng, Hà Nội</dd>
+            <dt>Liên hệ</dt>
+            <dd>Ms. Cung Cẩm Tú</dd>
+            <dt>Điện thoại</dt>
+            <dd><a href="tel:0902088246">0902 088 246</a> · <a href="tel:02432000688">024 3200 0688</a></dd>
+            <dt>Email</dt>
+            <dd><a href="mailto:Tu.cung@c-star.vn">Tu.cung@c-star.vn</a></dd>
+            <dt>Địa chỉ</dt>
+            <dd>B11 ngõ Trại Găng, phố Bạch Mai,<br />Hai Bà Trưng, Hà Nội</dd>
           </dl>
         </div>
 
-        <form class="form reveal" onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Đã gửi — cảm ơn bạn';">
+        <form class="form reveal"
+          onsubmit="event.preventDefault(); this.querySelector('button').textContent = 'Đã gửi — cảm ơn bạn';">
           <div class="field"><label class="label" for="f-name">Họ tên</label><input id="f-name" required /></div>
-          <div class="field"><label class="label" for="f-email">Email</label><input id="f-email" type="email" required /></div>
+          <div class="field"><label class="label" for="f-email">Email</label><input id="f-email" type="email"
+              required /></div>
           <div class="field">
             <label class="label" for="f-topic">Bạn quan tâm</label>
             <select id="f-topic">
@@ -884,7 +1477,8 @@
       <div class="footer-grid">
         <div>
           <h4>C-STAR</h4>
-          <p style="max-width: 24rem; color: var(--ink-soft);">Công ty Cổ phần Tư vấn & Phát triển Thương hiệu C-Star.</p>
+          <p style="max-width: 24rem; color: var(--ink-soft);">Công ty Cổ phần Tư vấn & Phát triển Thương hiệu C-Star.
+          </p>
         </div>
         <div>
           <h4>Lĩnh vực</h4>
@@ -1019,4 +1613,5 @@
     }
   </script>
 </body>
+
 </html>
