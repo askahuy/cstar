@@ -387,15 +387,16 @@
 
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: clamp(2rem, 6vw, 6rem);
+      grid-template-columns: clamp(140px, 16vw, 220px) 1fr;
+      gap: clamp(2rem, 5vw, 5rem);
     }
 
     .about blockquote {
       font-family: var(--serif);
-      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
-      line-height: 1.22;
-      margin-bottom: 2.5rem;
+      font-size: clamp(1.8rem, 2.7vw, 2.6rem);
+      line-height: 1.25;
+      margin-bottom: 2.2rem;
+      max-width: none;
     }
 
     .about p {
@@ -1779,7 +1780,7 @@
       <div class="wrap about-grid">
         <span class="label reveal">Về chúng tôi</span>
         <div class="reveal">
-          <blockquote>Thương hiệu bền vững bắt đầu từ chiến lược đúng đắn và sự thấu hiểu thị trường.</blockquote>
+          <blockquote>Thương hiệu bền vững bắt đầu từ chiến lược đúng đắn<br class="hide-sm" /> và sự thấu hiểu thị trường.</blockquote>
           <p>Kế thừa 15+ năm kinh nghiệm từ hệ sinh thái, C-STAR chuyên sâu tư vấn chiến lược thương hiệu, tổ chức sự kiện quy mô lớn và sản xuất truyền thông đa kênh cho các tập đoàn kinh tế chủ lực (PV GAS, MobiFone, Vietcombank, Gamuda Land...).</p>
 
           <div class="facts">
