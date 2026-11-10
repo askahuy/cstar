@@ -59,6 +59,7 @@
     html {
       scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     body {
@@ -68,6 +69,8 @@
       line-height: 1.7;
       color: var(--ink);
       background: var(--paper);
+      overflow-x: hidden;
+      max-width: 100vw;
     }
 
     a {
@@ -84,6 +87,7 @@
 
     .wrap {
       max-width: var(--max);
+      width: 100%;
       margin-inline: auto;
       padding-inline: var(--pad);
     }
@@ -412,7 +416,7 @@
 
     .facts {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       margin-top: 3.5rem;
       border-top: 1px solid var(--line);
     }
@@ -1137,26 +1141,29 @@
       list-style: none;
       margin-top: 3rem;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       border-top: 1px solid var(--line);
       border-left: 1px solid var(--line);
+      width: 100%;
     }
 
     .client-list li {
       display: flex;
       align-items: center;
       justify-content: center;
+      min-width: 0;
       height: 132px;
-      padding: 1.35rem 1.75rem;
+      padding: 1.35rem 1.5rem;
       border-right: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
       background: #fff;
+      overflow: hidden;
     }
 
     .client-list img {
       width: auto;
       height: auto;
-      max-width: 165px;
+      max-width: 85%;
       max-height: 74px;
       object-fit: contain;
       transition: transform 0.35s var(--ease);
@@ -1464,7 +1471,17 @@
       }
 
       .client-list {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .client-list li {
+        height: 100px;
+        padding: 0.75rem 1rem;
+      }
+
+      .client-list img {
+        max-width: 85%;
+        max-height: 52px;
       }
 
       .community-list li {
@@ -1525,6 +1542,33 @@
       .pm-nav-btn {
         width: 100%;
         text-align: left !important;
+      }
+
+      .client-list li {
+        height: 86px;
+        padding: 0.5rem 0.75rem;
+      }
+
+      .client-list img {
+        max-width: 86%;
+        max-height: 44px;
+      }
+
+      .facts {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .fact {
+        padding: 1.25rem 0.4rem 0 0;
+      }
+
+      .fact strong {
+        font-size: 2.1rem;
+      }
+
+      .fact span {
+        font-size: 0.74rem;
+        line-height: 1.35;
       }
     }
 
