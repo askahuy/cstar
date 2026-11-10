@@ -434,20 +434,31 @@
     }
 
     /* =====================================================================
-       6. LĨNH VỰC (3 trụ cột theo hồ sơ năng lực)
+       6. LĨNH VỰC (3 TRỤ CỘT THEO HỒ SƠ NĂNG LỰC) — 3 CỘT TINH GỌN
        ===================================================================== */
     .services {
       padding-bottom: clamp(5rem, 10vw, 8rem);
     }
 
-    .service {
+    .services-grid {
       display: grid;
-      grid-template-columns: 5rem 1.1fr 1.5fr 1fr;
-      gap: 2rem;
-      padding: 2.6rem 1.25rem;
-      margin-inline: -1.25rem;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
-      transition: background 0.4s var(--ease);
+      margin-top: 2rem;
+    }
+
+    .service {
+      display: flex;
+      flex-direction: column;
+      padding: clamp(2.5rem, 4vw, 4rem) clamp(1.5rem, 2.5vw, 2.75rem);
+      border-right: 1px solid var(--line);
+      transition: background 0.35s var(--ease);
+      position: relative;
+    }
+
+    .service:last-child {
+      border-right: none;
     }
 
     .service:hover {
@@ -456,41 +467,27 @@
 
     .service-no {
       font-family: var(--serif);
-      font-size: 1.1rem;
+      font-size: 1.35rem;
       color: var(--plum);
+      margin-bottom: 1.6rem;
     }
 
     .service h3 {
       font-family: var(--serif);
       font-weight: 400;
-      font-size: 2rem;
-      line-height: 1.1;
+      font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
     }
 
-    .service h3 small {
-      display: block;
+    .service-tag {
       font-family: var(--sans);
-      font-size: 0.72rem;
+      font-size: 0.76rem;
       font-weight: 500;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--ink-soft);
-      margin-top: 0.6rem;
-    }
-
-    .service p {
-      color: var(--ink-soft);
-      font-size: 0.95rem;
-    }
-
-    .service ul {
-      list-style: none;
-      font-size: 0.85rem;
-      color: var(--ink-soft);
-    }
-
-    .service li {
-      padding: 0.15rem 0;
     }
 
     /* =====================================================================
@@ -1449,13 +1446,18 @@
         opacity: 0.35;
       }
 
-      .service {
-        grid-template-columns: 3rem 1fr;
+      .services-grid {
+        grid-template-columns: 1fr;
       }
 
-      .service p,
-      .service ul {
-        grid-column: 2;
+      .service {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 2.2rem 1.25rem;
+      }
+
+      .service:last-child {
+        border-bottom: none;
       }
 
       .client-list {
@@ -1793,7 +1795,7 @@
     </section>
 
     <!-- ===================================================================
-         SECTION 3: LĨNH VỰC
+         SECTION 3: LĨNH VỰC (3 TRỤ CỘT THEO HỒ SƠ NĂNG LỰC)
          =================================================================== -->
     <section class="services" id="services">
       <div class="wrap">
@@ -1802,46 +1804,25 @@
           <span class="label">03 trụ cột</span>
         </div>
 
-        <article class="service reveal">
-          <span class="service-no">01</span>
-          <h3>Kiến tạo thương hiệu<small>Tư vấn thương hiệu</small></h3>
-          <p>Giải pháp tư vấn tổng thể từ nghiên cứu thị trường, chiến lược thương hiệu, hoạch định truyền thông, thiết
-            kế nhận diện đến kế hoạch triển khai chi tiết.</p>
-          <ul>
-            <li>Nghiên cứu thị trường</li>
-            <li>Câu chuyện & hình ảnh truyền thông</li>
-            <li>Xây dựng bộ nhận diện thương hiệu</li>
-            <li>Tư vấn & xây dựng văn hóa doanh nghiệp</li>
-            <li>Xây dựng chiến lược</li>
-            <li>Lập kế hoạch triển khai</li>
-          </ul>
-        </article>
+        <div class="services-grid">
+          <article class="service reveal">
+            <span class="service-no">01</span>
+            <h3>Kiến tạo thương hiệu</h3>
+            <span class="service-tag">Tư vấn thương hiệu</span>
+          </article>
 
-        <article class="service reveal">
-          <span class="service-no">02</span>
-          <h3>Lan tỏa thương hiệu<small>Phát triển thương hiệu</small></h3>
-          <p>Truyền thông tích hợp đưa chiến lược thương hiệu đến gần hơn với khách hàng và cộng đồng, thực hiện theo
-            tiêu chuẩn chuyên nghiệp.</p>
-          <ul>
-            <li>Tổ chức sự kiện</li>
-            <li>Phim / ảnh doanh nghiệp, TVC, TV show</li>
-            <li>Biển bảng</li>
-            <li>Trang trí & sản xuất</li>
-            <li>Quảng cáo & tài trợ truyền hình</li>
-          </ul>
-        </article>
+          <article class="service reveal">
+            <span class="service-no">02</span>
+            <h3>Lan tỏa thương hiệu</h3>
+            <span class="service-tag">Phát triển thương hiệu</span>
+          </article>
 
-        <article class="service reveal">
-          <span class="service-no">03</span>
-          <h3>Gia tăng giá trị<small>Kết nối & trách nhiệm xã hội</small></h3>
-          <p>Tạo dựng giá trị lâu dài, mở rộng hệ sinh thái hợp tác cùng doanh nghiệp lớn, cơ quan quản lý nhà nước và
-            các nền tảng truyền thông.</p>
-          <ul>
-            <li>Liên kết thương hiệu</li>
-            <li>Tư vấn trách nhiệm xã hội (CSR)</li>
-            <li>Xây dựng cộng đồng</li>
-          </ul>
-        </article>
+          <article class="service reveal">
+            <span class="service-no">03</span>
+            <h3>Gia tăng giá trị</h3>
+            <span class="service-tag">Kết nối &amp; trách nhiệm xã hội</span>
+          </article>
+        </div>
       </div>
     </section>
 
