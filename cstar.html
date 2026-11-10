@@ -493,85 +493,634 @@
     }
 
     /* =====================================================================
-       7. DỰ ÁN — dải ảnh cuộn ngang
+       7. DỰ ÁN — HỆ THỐNG PHÂN LOẠI & LƯỚI DỰ ÁN (PHONG CÁCH DREAM STUDIO)
        ===================================================================== */
     .work {
       padding: clamp(5rem, 10vw, 8rem) 0;
       background: var(--paper-2);
     }
 
-    .rail {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: clamp(290px, 36vw, 520px);
-      gap: 1.5rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      padding: 3rem max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad))) 1rem;
-      scroll-padding-inline: max(var(--pad), calc((100vw - var(--max)) / 2 + var(--pad)));
+    .work-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--line);
     }
 
-    .rail::-webkit-scrollbar {
-      display: none;
+    .work-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .work-header-top h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      line-height: 1.05;
+    }
+
+    .work-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .filter-pill {
+      appearance: none;
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      padding: 0.6rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(22, 20, 19, 0.2);
+      background: rgba(255, 255, 255, 0.65);
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.25s var(--ease);
+    }
+
+    .filter-pill:hover {
+      border-color: var(--ink);
+      background: #fff;
+    }
+
+    .filter-pill.active {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    .filter-count {
+      font-size: 0.72rem;
+      opacity: 0.65;
+    }
+
+    .project-grid {
+      margin-top: 2.75rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.4rem 1.75rem;
     }
 
     .card {
-      scroll-snap-align: start;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+    }
+
+    .card[hidden] {
+      display: none;
     }
 
     .card-media {
-      aspect-ratio: 3 / 2;
+      position: relative;
+      aspect-ratio: 16 / 10;
+      border-radius: 12px;
       overflow: hidden;
       background: var(--line);
+      box-shadow: 0 6px 24px rgba(20, 14, 18, 0.06);
     }
 
     .card-media img {
-      transition: transform 1.4s var(--ease);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.85s var(--ease);
     }
 
     .card:hover .card-media img {
-      transform: scale(1.04);
+      transform: scale(1.06);
     }
 
-    .card .label {
-      margin: 1.25rem 0 0.4rem;
-      display: block;
+    .card-badge-play {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.38rem;
+      padding: 0.34rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(16, 12, 14, 0.68);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+    }
+
+    .card:hover .card-badge-play {
+      background: var(--plum);
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .card-badge-play svg {
+      width: 11px;
+      height: 11px;
+      fill: currentColor;
+    }
+
+    .card-photo-count {
+      position: absolute;
+      bottom: 0.75rem;
+      right: 0.85rem;
+      z-index: 2;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(16, 12, 14, 0.62);
+      backdrop-filter: blur(6px);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+    }
+
+    .card-meta {
+      margin: 1rem 0 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .card-meta-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--plum);
+      flex-shrink: 0;
     }
 
     .card h3 {
       font-family: var(--serif);
       font-weight: 400;
-      font-size: 1.55rem;
-      line-height: 1.2;
+      font-size: 1.42rem;
+      line-height: 1.24;
+      transition: color 0.25s;
+    }
+
+    .card:hover h3 {
+      color: var(--plum);
     }
 
     .card p {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: var(--ink-soft);
-      margin-top: 0.35rem;
+      margin-top: 0.3rem;
+      line-height: 1.5;
     }
 
-    .rail-nav {
+    .hero-slide {
+      cursor: pointer;
+    }
+
+    .hero-slide-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
+      padding: 0.48rem 1.05rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      color: #fff;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      width: fit-content;
+      transition: background 0.3s var(--ease), color 0.3s var(--ease);
+    }
+
+    .hero-slide:hover .hero-slide-cta {
+      background: #fff;
+      color: #0c0b0d;
+    }
+
+    .community-list li {
+      cursor: pointer;
+      transition: background 0.25s var(--ease), padding-inline 0.25s var(--ease);
+    }
+
+    .community-list li:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* =====================================================================
+       7B. TRANG CHI TIẾT DỰ ÁN (PROJECT DETAIL MODAL — DREAM STUDIO STYLE)
+       ===================================================================== */
+    .project-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #0e0c0e;
+      color: #f4f1ea;
+      overflow-y: auto;
+      overflow-x: hidden;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease), visibility 0.4s var(--ease);
+    }
+
+    .project-modal.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .pm-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem var(--pad);
+      background: rgba(14, 12, 14, 0.84);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .pm-back-btn,
+    .pm-close-btn {
+      appearance: none;
+      font: inherit;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+
+    .pm-back-btn:hover,
+    .pm-close-btn:hover {
+      background: #fff;
+      color: #0e0c0e;
+      border-color: #fff;
+    }
+
+    .pm-breadcrumb {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
+
+    .pm-hero {
+      position: relative;
+      height: min(68vh, 620px);
+      min-height: 400px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .pm-hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.75);
+    }
+
+    .pm-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #0e0c0e 4%, rgba(14, 12, 14, 0.55) 55%, rgba(14, 12, 14, 0.25) 100%);
+    }
+
+    .pm-hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: var(--max);
+      margin-inline: auto;
+      padding: 0 var(--pad) clamp(2.2rem, 4vw, 3.5rem);
+    }
+
+    .pm-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .pm-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.32rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      color: #fff;
+    }
+
+    .pm-pill.gold {
+      border-color: rgba(240, 168, 48, 0.55);
+      background: rgba(240, 168, 48, 0.18);
+      color: #ffd27d;
+    }
+
+    .pm-title {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.1rem, 4.4vw, 3.8rem);
+      line-height: 1.08;
+      color: #fff;
+      max-width: 28ch;
+    }
+
+    .pm-subtitle {
+      margin-top: 0.65rem;
+      font-size: clamp(0.95rem, 1.25vw, 1.12rem);
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 52rem;
+    }
+
+    .pm-body {
+      max-width: var(--max);
+      margin-inline: auto;
+      padding: 2rem var(--pad) 5rem;
+    }
+
+    /* KHUNG VIDEO YOUTUBE RECAP 16:9 */
+    .pm-video-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .pm-video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #050405;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .pm-video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .pm-video-bar {
+      margin-top: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .pm-yt-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--gold);
+      font-weight: 500;
+      border-bottom: 1px solid rgba(240, 168, 48, 0.4);
+      padding-bottom: 0.1rem;
+    }
+
+    .pm-yt-link:hover {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    /* 2 CỘT THÔNG TIN DỰ ÁN (CREDITS) & VỀ DỰ ÁN (STORY) */
+    .pm-info-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: clamp(2.5rem, 6vw, 5rem);
+      padding: 3rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .pm-section-tag {
+      display: inline-block;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+
+    .pm-credits-list {
+      display: grid;
+      gap: 1.15rem;
+    }
+
+    .pm-credit-item dt {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0.2rem;
+    }
+
+    .pm-credit-item dd {
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .pm-story p {
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: rgba(244, 241, 234, 0.86);
+      max-width: 68ch;
+    }
+
+    .pm-story p + p {
+      margin-top: 1.15rem;
+    }
+
+    .pm-deliverables {
+      margin-top: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
       gap: 0.5rem;
     }
 
-    .rail-nav button {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid var(--ink);
-      background: transparent;
-      color: var(--ink);
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s, color 0.3s;
+    .pm-deliverable-chip {
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.88);
     }
 
-    .rail-nav button:hover {
-      background: var(--ink);
-      color: var(--paper);
+    /* THƯ VIỆN HÌNH ẢNH DỰ ÁN (HÌNH ẢNH BENTO GALLERY) */
+    .pm-gallery-section {
+      padding-top: 3.2rem;
+    }
+
+    .pm-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .pm-gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #1a1619;
+      aspect-ratio: 16 / 10;
+      cursor: zoom-in;
+    }
+
+    .pm-gallery-item:first-child {
+      grid-column: 1 / -1;
+      aspect-ratio: 16 / 9;
+    }
+
+    .pm-gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease);
+    }
+
+    .pm-gallery-item.wide {
+      grid-column: 1 / -1;
+      aspect-ratio: 16 / 9;
+    }
+
+    .pm-video-note {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .pm-gallery-item:hover img {
+      transform: scale(1.04);
+    }
+
+    /* ĐIỀU HƯỚNG DỰ ÁN TIẾP THEO Ở CUỐI TRANG CHI TIẾT */
+    .pm-footer-nav {
+      margin-top: 4rem;
+      padding-top: 2.2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pm-nav-btn {
+      appearance: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      padding: 1rem 1.4rem;
+      color: #fff;
+      cursor: pointer;
+      text-align: left;
+      min-width: 240px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+
+    .pm-nav-btn.next {
+      text-align: right;
+    }
+
+    .pm-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+
+    .pm-nav-btn small {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 0.25rem;
+    }
+
+    .pm-nav-btn strong {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    /* LIGHTBOX XEM ẢNH PHÓNG TO */
+    .pm-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(8, 6, 8, 0.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s var(--ease), visibility 0.25s var(--ease);
+    }
+
+    .pm-lightbox.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .pm-lightbox img {
+      max-width: 94vw;
+      max-height: 88vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
     }
 
     /* =====================================================================
@@ -924,6 +1473,18 @@
       .footer-grid {
         grid-template-columns: 1fr 1fr;
       }
+
+      .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pm-info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pm-breadcrumb {
+        display: none;
+      }
     }
 
     @media (max-width: 600px) {
@@ -948,6 +1509,16 @@
       .slider-side-btn {
         width: 42px;
         height: 42px;
+      }
+
+      .project-grid,
+      .pm-gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pm-nav-btn {
+        width: 100%;
+        text-align: left !important;
       }
     }
 
@@ -993,164 +1564,179 @@
     <section class="hero-showcase" id="heroSlider" aria-label="Sự kiện tiêu biểu C-Star">
       <div class="hero-slides" id="heroSlides">
         <!-- Slide 1: PV GAS 2024 -->
-        <div class="hero-slide active">
+        <div class="hero-slide active" data-project="pvgas-2024">
           <img src="assets/slide-pvgas-2024.jpg" alt="PV GAS — Tiệc cuối năm 2024: Anh Gas Say Hi" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Sự kiện tiêu biểu · PV GAS</span>
             <h3 class="hero-slide-title">Tiệc cuối năm 2024 — Anh Gas Say Hi</h3>
             <p class="hero-slide-desc">Sản xuất sân khấu LED không gian đa chiều, hiệu ứng ánh sáng quy mô lớn.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 2: MobiFone Mega Concert -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="mobifone-concert">
           <img src="assets/slide-mobifone-concert.jpg" alt="MobiFone — Đêm nhạc Maximizing Life" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Mega Concert · MobiFone</span>
             <h3 class="hero-slide-title">Đại nhạc hội Tri ân — Maximizing Life</h3>
             <p class="hero-slide-desc">Lễ hội âm nhạc ngoài trời quy mô hàng nghìn khán giả, hiệu ứng pháo sáng & dàn
               nghệ sĩ hàng đầu.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 3: PV GAS Fire Concert -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="fire-concert">
           <img src="assets/slide-fire-concert.jpg" alt="PV GAS — Fire Concert" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Hòa nhạc nghệ thuật · PV GAS</span>
             <h3 class="hero-slide-title">Hành trình 35 năm Thắp lửa non sông — Fire Concert</h3>
             <p class="hero-slide-desc">Chương trình hòa nhạc thính phòng đỉnh cao tại Nhà hát Lớn cùng dàn nhạc giao
               hưởng.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 4: Vietcombank 60 năm -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="vietcombank-60">
           <img src="assets/slide-vietcombank.jpg" alt="Vietcombank — Kỷ niệm 60 năm" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Lễ kỷ niệm & Tài năng · Vietcombank</span>
             <h3 class="hero-slide-title">Tìm kiếm tài năng & Kỷ niệm 60 năm Vietcombank</h3>
             <p class="hero-slide-desc">Sân khấu biểu tượng ngôi sao vàng hoành tráng, chuỗi hoạt động toàn hệ thống.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 5: PV GAS GasNexus -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="pvgas-gasnexus">
           <img src="assets/slide-gasnexus.jpg" alt="PV GAS — GasNexus" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Year-end Party · PV GAS</span>
             <h3 class="hero-slide-title">Tiệc cuối năm 2025 — GasNexus</h3>
             <p class="hero-slide-desc">Thiết kế đường hầm ánh sáng tương lai và cổng chào công nghệ tương tác.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 6: Hà Nội FC -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="hanoifc">
           <img src="assets/slide-hanoifc.jpg" alt="Hà Nội FC — Lễ xuất quân" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Sự kiện thể thao · Hà Nội FC</span>
             <h3 class="hero-slide-title">Lễ xuất quân & Ra mắt áo đấu CLB Bóng đá Hà Nội</h3>
             <p class="hero-slide-desc">Tổ chức họp báo, sân khấu ra mắt áo đấu và hiệu ứng màn hình mở cánh cửa biểu
               tượng.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 7: MobiFone Cảm ơn nhân viên -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="mobifone-camon">
           <img src="assets/slide-mobifone-camon.jpg" alt="MobiFone 5G — Hội ngộ Anh tài X2 Trải nghiệm" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Chuỗi sự kiện 6 tỉnh thành · MobiFone 5G</span>
             <h3 class="hero-slide-title">Hội ngộ Anh tài — X2 Trải nghiệm</h3>
             <p class="hero-slide-desc">Chương trình cảm ơn nhân viên hỗ trợ khách hàng tại Hà Nội, Hải Phòng, Đà Nẵng,
               TP.HCM, Cần Thơ, Đồng Nai.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 8: Vinawind 60 năm -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="vinawind-60">
           <img src="assets/slide-vinawind.jpg" alt="Vinawind — Lễ kỷ niệm 60 năm thành lập" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Lễ kỷ niệm 60 năm · Vinawind</span>
             <h3 class="hero-slide-title">Kế thừa giá trị — Kiến tạo tương lai</h3>
             <p class="hero-slide-desc">Lễ kỷ niệm 60 năm thành lập Công ty Cổ phần Điện cơ Thống Nhất và tri ân cán bộ
               công nhân viên cống hiến.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 9: CTIN 22 năm -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="ctin-22">
           <img src="assets/slide-ctin.jpg" alt="CTIN — Lễ kỷ niệm 22 năm Cổ phần hóa" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Lễ kỷ niệm 22 năm · CTIN</span>
             <h3 class="hero-slide-title">Bản hòa ca Sáng tạo — Tiếp lửa thành công</h3>
             <p class="hero-slide-desc">Chuỗi hoạt động văn nghệ, gala và teambuilding kỷ niệm 22 năm cổ phần hóa CTIN.
             </p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 10: Caramind Summit 05 -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="caramind-summit">
           <img src="assets/slide-caramind.jpg" alt="Caramind Summit 05" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Hội nghị khoa học & Ra mắt · Caramind</span>
             <h3 class="hero-slide-title">Caramind Summit 05 — Giải pháp tái cấu trúc nền da</h3>
             <p class="hero-slide-desc">Không gian triển lãm nghệ thuật, lễ ký kết đồng hành và hội thảo chuyên gia quy
               mô lớn.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 11: MobiFone Lễ hội Yên Tử -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="yentu">
           <img src="assets/slide-yentu.jpg" alt="MobiFone 5G — Lễ hội Xuân Yên Tử" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Sự kiện Văn hóa · Xã hội · MobiFone 5G</span>
             <h3 class="hero-slide-title">Trẩy hội Xuân Yên Tử (2023 – 2025)</h3>
             <p class="hero-slide-desc">Không gian văn hóa truyền thống và hoạt động trải nghiệm thương hiệu tại Lễ hội
               Yên Tử.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 12: Vu Lan Đạo hiếu & Dân tộc -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="vulan-2024">
           <img src="assets/slide-vulan.jpg" alt="Vu Lan — Đạo hiếu và Dân tộc 2024" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Sự kiện Văn hóa · Chính trị · Xã hội</span>
             <h3 class="hero-slide-title">Vu Lan 2024 — Đạo hiếu & Dân tộc</h3>
             <p class="hero-slide-desc">Chương trình nghệ thuật đặc biệt tôn vinh đạo hiếu và truyền thống dân tộc cùng
               Tạp chí Nghiên cứu Phật học.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 13: Tự hào Tổ quốc tôi -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="tuhaotoquoc">
           <img src="assets/slide-tuhaotoquoc.jpg" alt="Tự hào Tổ quốc tôi" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Sự kiện Văn hóa · Chính trị · Xã hội</span>
             <h3 class="hero-slide-title">Tự hào Tổ quốc tôi — Viết tiếp câu chuyện tự hào</h3>
             <p class="hero-slide-desc">Hành trình báo công tại các cột mốc chủ quyền Việt Nam trên đất liền và đêm Gala
               trao giải.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 14: Tôi yêu đồng bào tôi -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="dongbao">
           <img src="assets/slide-dongbao.jpg" alt="Chương trình Tôi yêu đồng bào tôi" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Kết nối Thương hiệu · Trách nhiệm Xã hội</span>
             <h3 class="hero-slide-title">Chương trình từ thiện — Tôi yêu đồng bào tôi</h3>
             <p class="hero-slide-desc">Kết nối các doanh nghiệp và nhà hảo tâm hỗ trợ trẻ em nghèo vùng cao đón Tết
               (2023 – 2025).</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
 
         <!-- Slide 15: Gamuda Land Ngày hội Đa dạng sinh học -->
-        <div class="hero-slide">
+        <div class="hero-slide" data-project="gamuda-biodiversity">
           <img src="assets/slide-gamuda.jpg" alt="Gamuda Land — Ngày hội Đa dạng sinh học" />
           <div class="hero-slide-overlay">
             <span class="hero-slide-badge">Lễ hội · Sự kiện Cộng đồng · Gamuda Land</span>
             <h3 class="hero-slide-title">Ngày hội Đa dạng sinh học Gamuda (2023 – 2024)</h3>
             <p class="hero-slide-desc">Không gian lễ hội xanh, triển lãm sinh thái và âm nhạc ngoài trời gắn kết cộng
               đồng.</p>
+            <span class="hero-slide-cta">▶ Xem Video & Chi tiết dự án →</span>
           </div>
         </div>
       </div>
@@ -1265,81 +1851,36 @@
     </section>
 
     <!-- ===================================================================
-         SECTION 4: DỰ ÁN TIÊU BIỂU (từ hồ sơ năng lực)
+         SECTION 4: HỆ THỐNG DỰ ÁN TIÊU BIỂU (PHÂN MỤC & TRANG CHI TIẾT DREAM STUDIO)
          =================================================================== -->
     <section class="work" id="work">
-      <div class="wrap section-head reveal">
-        <h2>Dự án tiêu biểu</h2>
-        <div class="rail-nav">
-          <button type="button" data-dir="-1" aria-label="Trước">←</button>
-          <button type="button" data-dir="1" aria-label="Sau">→</button>
-        </div>
-      </div>
+      <div class="wrap">
+        <div class="work-header reveal">
+          <div class="work-header-top">
+            <h2>Dự án tiêu biểu</h2>
+            <span class="label">19 Dự án · Nhấn vào từng dự án để xem Video &amp; Hình ảnh</span>
+          </div>
 
-      <div class="rail" id="rail">
-        <article class="card">
-          <div class="card-media"><img src="assets/w-fire-concert.jpg" alt="Fire Concert PV GAS" loading="lazy" /></div>
-          <span class="label">PV GAS — Sự kiện</span>
-          <h3>Hành trình 35 năm Thắp lửa non sông — Đêm nhạc Fire Concert</h3>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-vietcombank.jpg" alt="Tìm kiếm tài năng Vietcombank"
-              loading="lazy" /></div>
-          <span class="label">Vietcombank — 2023</span>
-          <h3>Tìm kiếm tài năng Vietcombank</h3>
-          <p>Chuỗi hoạt động kỷ niệm 60 năm thành lập ngân hàng.</p>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-mobifone.jpg" alt="Maximizing Life MobiFone" loading="lazy" />
+          <div class="work-filters" id="workFilters" role="tablist" aria-label="Phân loại dự án">
+            <button type="button" class="filter-pill active" data-filter="all">
+              Tất cả <span class="filter-count">(19)</span>
+            </button>
+            <button type="button" class="filter-pill" data-filter="brand-exp">
+              Trải nghiệm thương hiệu <span class="filter-count">(8)</span>
+            </button>
+            <button type="button" class="filter-pill" data-filter="concerts">
+              Concerts &amp; Truyền hình <span class="filter-count">(3)</span>
+            </button>
+            <button type="button" class="filter-pill" data-filter="cultural">
+              Văn hóa · Chính trị · Xã hội <span class="filter-count">(5)</span>
+            </button>
+            <button type="button" class="filter-pill" data-filter="branding">
+              Nhận diện &amp; Phim thương hiệu <span class="filter-count">(3)</span>
+            </button>
           </div>
-          <span class="label">MobiFone — Sự kiện</span>
-          <h3>Maximizing Life — Chương trình tri ân khách hàng</h3>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-gasnexus.jpg" alt="GasNexus PV GAS" loading="lazy" /></div>
-          <span class="label">PV GAS — 2025</span>
-          <h3>Tiệc cuối năm 2025 — GasNexus</h3>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-vinawind.jpg" alt="Vinawind 60 năm" loading="lazy" /></div>
-          <span class="label">Vinawind — 2025</span>
-          <h3>Lễ kỷ niệm 60 năm thành lập</h3>
-          <p>Kế thừa giá trị — Kiến tạo tương lai.</p>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-hanoifc.jpg" alt="Lễ xuất quân CLB Bóng đá Hà Nội"
-              loading="lazy" /></div>
-          <span class="label">Hà Nội FC — Sự kiện</span>
-          <h3>Lễ xuất quân CLB Bóng đá Hà Nội</h3>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-caramind.jpg" alt="Caramind Summit 05" loading="lazy" /></div>
-          <span class="label">Caramind — Hội nghị</span>
-          <h3>Caramind Summit 05</h3>
-          <p>Giải pháp chủ lực tái cấu trúc nền da xuyên tầng.</p>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-ctin.jpg" alt="CTIN 22 năm cổ phần hoá" loading="lazy" /></div>
-          <span class="label">CTIN — Sự kiện</span>
-          <h3>Lễ kỷ niệm 22 năm cổ phần hoá</h3>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-gamuda.jpg" alt="Viral clip Gamuda Land" loading="lazy" /></div>
-          <span class="label">Gamuda Land — Viral clip</span>
-          <h3>Điều phi thường giản dị</h3>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-pvndb.jpg" alt="Nhận diện thương hiệu PVNDB" loading="lazy" />
-          </div>
-          <span class="label">PVNDB — Nhận diện</span>
-          <h3>Xây dựng bộ nhận diện & lễ ra mắt thương hiệu mới</h3>
-        </article>
-        <article class="card">
-          <div class="card-media"><img src="assets/w-vtv.jpg" alt="Dấu ấn 2024 VTV1" loading="lazy" /></div>
-          <span class="label">VTV1 — Tài trợ truyền hình</span>
-          <h3>Dấu ấn 2023 & Dấu ấn 2024</h3>
-          <p>Chương trình truyền hình trực tiếp.</p>
-        </article>
+        </div>
+
+        <div class="project-grid" id="projectGrid"></div>
       </div>
     </section>
 
@@ -1391,26 +1932,26 @@
         <h2 class="reveal">Những dự án tạo tác động tích cực và bền vững cho xã hội.</h2>
 
         <ul class="community-list">
-          <li class="reveal">
+          <li class="reveal" data-project="dongbao">
             <h3>Tôi yêu đồng bào tôi</h3><span>Kết nối doanh nghiệp hỗ trợ trẻ em nghèo vùng cao đón
-              Tết</span><time>2023 – 2025</time>
+              Tết</span><time>2023 – 2025 →</time>
           </li>
-          <li class="reveal">
-            <h3>Tự hào Tổ quốc tôi</h3><span>Hành trình báo công tại các cột mốc chủ quyền & cuộc vận động sáng tác
-              “Viết tiếp câu chuyện tự hào”</span><time></time>
+          <li class="reveal" data-project="tuhaotoquoc">
+            <h3>Tự hào Tổ quốc tôi</h3><span>Hành trình báo công tại các cột mốc chủ quyền &amp; cuộc vận động sáng tác
+              “Viết tiếp câu chuyện tự hào”</span><time>2024 – 2025 →</time>
           </li>
-          <li class="reveal">
-            <h3>Vu Lan — Đạo hiếu & Dân tộc</h3><span>Cùng Tạp chí Nghiên cứu Phật học</span><time>2024</time>
+          <li class="reveal" data-project="vulan-2024">
+            <h3>Vu Lan — Đạo hiếu &amp; Dân tộc</h3><span>Cùng Tạp chí Nghiên cứu Phật học</span><time>2024 →</time>
           </li>
-          <li class="reveal">
-            <h3>Lễ hội Yên Tử</h3><span>Cùng MobiFone</span><time>2023 – 2025</time>
+          <li class="reveal" data-project="yentu">
+            <h3>Lễ hội Yên Tử</h3><span>Cùng MobiFone 5G</span><time>2023 – 2025 →</time>
           </li>
-          <li class="reveal">
-            <h3>Ngày hội Đa dạng sinh học</h3><span>Cùng Gamuda Land</span><time>2023 – 2024</time>
+          <li class="reveal" data-project="gamuda-biodiversity">
+            <h3>Ngày hội Đa dạng sinh học</h3><span>Cùng Gamuda Land</span><time>2023 – 2024 →</time>
           </li>
-          <li class="reveal">
+          <li class="reveal" data-project="mobifone-camon">
             <h3>Cảm ơn nhân viên hỗ trợ khách hàng</h3><span>MobiFone — Hà Nội, Hải Phòng, Đà Nẵng, TP.HCM, Cần Thơ,
-              Đồng Nai</span><time>2023 – 2024</time>
+              Đồng Nai</span><time>2023 – 2024 →</time>
           </li>
         </ul>
       </div>
@@ -1514,6 +2055,20 @@
     </div>
   </footer>
 
+  <!-- ===================================================================
+       TRANG CHI TIẾT DỰ ÁN (mở khi bấm vào dự án)
+       =================================================================== -->
+  <div class="project-modal" id="projectModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="pm-topbar">
+      <button type="button" class="pm-back-btn" id="pmBack">← Quay lại Dự án</button>
+      <span class="pm-breadcrumb" id="pmBreadcrumb"></span>
+      <img src="assets/logo.png" alt="C-STAR" style="height: 26px; width: auto;" />
+    </div>
+    <div id="pmContent"></div>
+  </div>
+
+  <div class="pm-lightbox" id="pmLightbox"><img alt="" /></div>
+
   <script>
     // Viền header & Hiệu ứng Zoom ảnh trong khung khi cuộn lên xuống
     const header = document.getElementById('header');
@@ -1560,11 +2115,278 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
-    // Nút trượt dải dự án
-    const rail = document.getElementById('rail');
-    document.querySelectorAll('.rail-nav button').forEach((b) =>
-      b.addEventListener('click', () => rail.scrollBy({ left: b.dataset.dir * rail.clientWidth * 0.8, behavior: 'smooth' }))
-    );
+    // =====================================================================
+    // DỮ LIỆU DỰ ÁN (theo hồ sơ năng lực HSNL-cstar.pdf)
+    // video: ID YouTube công khai tìm được; videoNote ghi rõ nội dung video.
+    // =====================================================================
+    const CATS = {
+      'brand-exp': 'Trải nghiệm thương hiệu',
+      'concerts': 'Concerts & Truyền hình',
+      'cultural': 'Văn hóa · Chính trị · Xã hội',
+      'branding': 'Nhận diện & Phim thương hiệu'
+    };
+
+    const PROJECTS = [
+      {
+        slug: 'pvgas-2024', cat: 'brand-exp', year: '2024', client: 'PV GAS', page: 'p10', photos: 5,
+        title: 'Tiệc cuối năm 2024 — Anh Gas “Say Hi”', scope: 'Tổ chức sự kiện',
+        desc: 'Đêm tiệc tổng kết năm của Tổng công ty Khí Việt Nam với concept “Anh Gas Say Hi”: sân khấu LED khung kim loại phát sáng, khu check-in “Sắc Xuân 2024”, không gian triển lãm công nghệ và cổng chào nhận diện tại sảnh.',
+        video: 'Gc7XSU3HwE4', videoNote: 'Video tham khảo: TVC PV GAS — Năng lượng khơi nguồn đổi mới (2024)'
+      },
+      {
+        slug: 'pvgas-gasnexus', cat: 'brand-exp', year: '2025', client: 'PV GAS', page: 'p11', photos: 7,
+        title: 'Tiệc cuối năm 2025 — GasNexus', scope: 'Tổ chức sự kiện',
+        desc: 'Chương trình cuối năm mang chủ đề GasNexus — kết nối năng lượng tương lai. Không gian được thiết kế với đường hầm ánh sáng, sân khấu xuyên thấu nhiều lớp và hệ thống chiếu sáng quy mô lớn, cùng các tiết mục trình diễn và vinh danh tập thể.',
+        video: 'PVvQWE3RUQI', videoNote: 'Video tham khảo: Phim báo cáo PV GAS 2025 — Bứt phá từ tới hạn'
+      },
+      {
+        slug: 'fire-concert', cat: 'concerts', year: '2025', client: 'PV GAS', page: 'p12', photos: 6, location: 'Nhà hát Lớn Hà Nội',
+        title: 'Hành trình 35 năm Thắp lửa non sông — Fire Concert', scope: 'Tổ chức sự kiện',
+        desc: 'Đêm nhạc Fire Concert kỷ niệm hành trình 35 năm của PV GAS. Chương trình hòa nhạc với dàn nhạc giao hưởng, hợp xướng và nghệ sĩ khách mời, sân khấu tông đỏ — lửa làm chủ đạo, kể lại câu chuyện “thắp lửa non sông” bằng âm nhạc.',
+        video: '8YJhDPSwS5E', videoNote: 'Kỷ niệm 35 năm ngày thành lập Tổng công ty Khí Việt Nam'
+      },
+      {
+        slug: 'vietcombank-60', cat: 'brand-exp', year: '2023', client: 'Vietcombank', page: 'p13', photos: 6,
+        title: 'Tìm kiếm tài năng Vietcombank 2023', scope: 'Tổ chức sự kiện',
+        desc: 'Chương trình Tìm kiếm tài năng Vietcombank 2023 nằm trong chuỗi hoạt động kỷ niệm 60 năm thành lập ngân hàng. Sân khấu biểu tượng ngôi sao, các vòng thi và đêm chung kết trao giải dành cho cán bộ nhân viên toàn hệ thống.',
+        video: 'fLOJHnfMEJE', videoNote: 'Tìm kiếm tài năng Vietcombank 2023'
+      },
+      {
+        slug: 'mobifone-camon', cat: 'brand-exp', year: '2023 – 2024', client: 'MobiFone 5G', page: 'p14', photos: 6,
+        location: 'Hà Nội, Hải Phòng, Đà Nẵng, TP.HCM, Cần Thơ, Đồng Nai',
+        title: 'Hội ngộ Anh tài — X2 Trải nghiệm', scope: 'Tổ chức sự kiện',
+        desc: 'Chuỗi chương trình cảm ơn nhân viên hỗ trợ khách hàng của MobiFone, triển khai đồng bộ tại 6 khu vực. Mỗi điểm sự kiện có sân khấu nhận diện “Hội ngộ Anh tài — X2 Trải nghiệm”, khu check-in, hoạt động giao lưu và trao giải.',
+        video: '_uE-vYfldC0', videoNote: 'Video tham khảo: Recap chương trình tri ân khách hàng MobiFone 2024'
+      },
+      {
+        slug: 'mobifone-concert', cat: 'concerts', year: '2024', client: 'MobiFone 5G', page: 'p15', photos: 6,
+        title: 'Maximizing Life — Đại nhạc hội tri ân khách hàng', scope: 'Tổ chức sự kiện',
+        desc: 'Đại nhạc hội ngoài trời tri ân khách hàng của MobiFone. Sân khấu LED nhiều tầng, hiệu ứng pháo sáng — lửa, ánh sáng sân khấu quy mô lớn cùng dàn nghệ sĩ khách mời, thu hút hàng nghìn khán giả.',
+        video: 'vm2WaBktkbQ', videoNote: 'MobiFone 5G — Maximizing Concert (20.12.2024)'
+      },
+      {
+        slug: 'vinawind-60', cat: 'brand-exp', year: '2025', client: 'Vinawind — Điện cơ Thống Nhất', page: 'p16', photos: 5,
+        title: 'Lễ kỷ niệm 60 năm thành lập — Kế thừa giá trị, Kiến tạo tương lai', scope: 'Tổ chức sự kiện',
+        desc: 'Lễ kỷ niệm 60 năm thành lập Công ty Cổ phần Điện cơ Thống Nhất (Vinawind). Chương trình gồm nghi thức dâng hương, lễ kỷ niệm, tri ân cán bộ công nhân viên cống hiến và ký cam kết thi đua hướng tới các chặng đường mới.',
+        video: null
+      },
+      {
+        slug: 'ctin-22', cat: 'brand-exp', year: '2024', client: 'CTIN', page: 'p17', photos: 6,
+        title: 'Lễ kỷ niệm 22 năm cổ phần hóa — Bản hòa ca Sáng tạo', scope: 'Tổ chức sự kiện',
+        desc: 'Chuỗi hoạt động kỷ niệm 22 năm cổ phần hóa của Công ty CP Viễn thông — Tin học Bưu điện (CTIN): đêm gala “Bản hòa ca Sáng tạo”, chương trình teambuilding ngoài trời và lễ vinh danh “Sáng tạo đổi mới — Tiến tới thành công”.',
+        video: 'ljSNf1vF8C4', videoNote: 'Video tham khảo: CTIN — Kỷ niệm sinh nhật công ty'
+      },
+      {
+        slug: 'caramind-summit', cat: 'brand-exp', year: '2025', client: 'Caramind', page: 'p18', photos: 6,
+        title: 'Caramind Summit 05 — Giải pháp tái cấu trúc nền da xuyên tầng', scope: 'Tổ chức sự kiện',
+        desc: 'Hội nghị Caramind Summit 05 giới thiệu giải pháp chủ lực tái cấu trúc nền da xuyên tầng. Không gian triển lãm tông đỏ đặc trưng, phiên hội thảo chuyên gia và lễ ký kết chương trình đồng hành “Tin cậy cùng Caramind 2025”.',
+        video: '-zdZFHqnyEQ', videoNote: 'Những khoảnh khắc rực rỡ tại Caramind Summit 05'
+      },
+      {
+        slug: 'hanoifc', cat: 'brand-exp', year: '2025', client: 'CLB Bóng đá Hà Nội', page: 'p19', photos: 6,
+        title: 'Lễ xuất quân & Ra mắt áo đấu CLB Bóng đá Hà Nội', scope: 'Tổ chức sự kiện',
+        desc: 'Lễ xuất quân mùa giải mới và ra mắt áo đấu của CLB Bóng đá Hà Nội: sân khấu tông xanh tím đặc trưng, màn trình diễn ra mắt áo đấu, giới thiệu đội hình và ký kết với các nhà tài trợ.',
+        video: 'U6vOrLXwvdA', videoNote: 'Trực tiếp: Lễ xuất quân CLB Bóng đá Hà Nội 2025/26'
+      },
+      {
+        slug: 'yentu', cat: 'cultural', year: '2023 – 2025', client: 'MobiFone 5G', page: 'p20', photos: 6, location: 'Yên Tử, Quảng Ninh',
+        title: 'Lễ hội Xuân Yên Tử', scope: 'Sự kiện Văn hóa — Chính trị — Xã hội',
+        desc: 'Đồng hành cùng MobiFone tại Lễ hội Xuân Yên Tử qua ba mùa lễ hội liên tiếp. Không gian nhà rạp mang kiến trúc truyền thống, khu check-in Tết, hoạt động trải nghiệm và chương trình phục vụ du khách hành hương.',
+        video: null
+      },
+      {
+        slug: 'dongbao', cat: 'cultural', year: '2023 – 2025', client: 'Các doanh nghiệp & nhà hảo tâm', page: 'p22', photos: 8,
+        title: 'Tôi yêu đồng bào tôi — Hỗ trợ trẻ em vùng cao đón Tết', scope: 'Kết nối thương hiệu — Trách nhiệm xã hội',
+        desc: 'Chương trình từ thiện kết nối các doanh nghiệp cùng các nhà hảo tâm hỗ trợ trẻ em nghèo vùng cao đón Tết. Các đoàn xe mang quà, áo ấm và nhu yếu phẩm đến các điểm trường vùng cao qua nhiều mùa xuân liên tiếp.',
+        video: 'P_XJHQifUds', videoNote: 'Tôi yêu đồng bào tôi — Kỷ niệm 5 năm hành trình mùa xuân yêu thương'
+      },
+      {
+        slug: 'vulan-2024', cat: 'cultural', year: '2024', client: 'Tạp chí Nghiên cứu Phật học', page: 'p23', photos: 6,
+        title: 'Vu Lan 2024 — Đạo hiếu & Dân tộc', scope: 'Sự kiện Văn hóa — Chính trị — Xã hội',
+        desc: 'Chương trình nghệ thuật “Vu Lan — Đạo hiếu và Dân tộc” năm 2024 phối hợp cùng Tạp chí Nghiên cứu Phật học: họp báo công bố, đêm nghệ thuật với các tiết mục ca múa nhạc tôn vinh đạo hiếu, cùng sự tham dự của chư tôn đức tăng ni.',
+        video: 'fm6PEIs8HQI', videoNote: 'Chương trình nghệ thuật “Vu lan — Đạo hiếu và Dân tộc năm 2024”'
+      },
+      {
+        slug: 'tuhaotoquoc', cat: 'cultural', year: '2025', client: 'Tự hào Tổ quốc tôi', page: 'p24', photos: 7, location: 'Các cột mốc chủ quyền · Nhà hát Lớn Hà Nội',
+        title: 'Tự hào Tổ quốc tôi — Viết tiếp câu chuyện tự hào', scope: 'Sự kiện Văn hóa — Chính trị — Xã hội',
+        desc: 'Hành trình báo công tại các cột mốc chủ quyền Việt Nam trên đất liền và cuộc vận động sáng tác “Viết tiếp câu chuyện tự hào”. Chương trình khép lại bằng đêm nghệ thuật tổng kết và trao giải tại Nhà hát Lớn Hà Nội.',
+        video: 'Bx1V8uXKFJk', videoNote: 'Trực tiếp: Đêm Gala tổng kết và trao giải “Tự hào Tổ quốc tôi”'
+      },
+      {
+        slug: 'gamuda-biodiversity', cat: 'cultural', year: '2023 – 2024', client: 'Gamuda Land', page: 'p25', photos: 8, location: 'Gamuda City, Hà Nội',
+        title: 'Ngày hội Đa dạng sinh học Gamuda', scope: 'Lễ hội — Sự kiện cộng đồng',
+        desc: 'Ngày hội Đa dạng sinh học tại khu đô thị Gamuda City: cổng chào và khu triển lãm từ vật liệu tự nhiên, gian hàng sinh thái, workshop cho gia đình và âm nhạc acoustic ngoài trời, lan tỏa lối sống xanh tới cư dân.',
+        video: 'EfqEW3wR4fk', videoNote: 'Ngày hội Đa dạng sinh học 2024 — Harmony in Diversity tại Gamuda City'
+      },
+      {
+        slug: 'gamuda-viral', cat: 'branding', year: '', client: 'Gamuda Land', page: 'p08', photos: 4,
+        title: 'Viral clip “Điều phi thường giản dị”', scope: 'Viral clip',
+        desc: 'Viral clip “Điều phi thường giản dị” cho Gamuda Land — câu chuyện nhẹ nhàng về những người lặng lẽ chăm chút cảnh quan, cây xanh và môi trường sống, truyền tải giá trị phát triển bền vững của thương hiệu.',
+        video: 'I5oK-gEsE1I', videoNote: 'ĐIỀU PHI THƯỜNG GIẢN DỊ | Gamuda Land'
+      },
+      {
+        slug: 'vtv-dauan', cat: 'concerts', year: '2023 – 2024', client: 'VTV1', page: 'p09', photos: 2,
+        title: 'Dấu ấn 2023 & Dấu ấn 2024 — Truyền hình trực tiếp', scope: 'TV show — Tài trợ truyền hình',
+        desc: 'Đồng hành cùng chương trình truyền hình trực tiếp “Dấu ấn” cuối năm trên kênh VTV1 (29/12/2023 và 29/12/2024) — chương trình nhìn lại những sự kiện, con người nổi bật của năm.',
+        video: 'R0HnHrcKX5c', videoNote: 'VTV1 | Dấu Ấn 2024 (29/12/2024)'
+      },
+      {
+        slug: 'pvndb', cat: 'branding', year: '', client: 'PVNDB', page: 'p05', photos: 4,
+        title: 'Bộ nhận diện thương hiệu mới PVNDB & Lễ ra mắt', scope: 'Xây dựng bộ nhận diện thương hiệu',
+        desc: 'Xây dựng bộ nhận diện thương hiệu mới cho PVNDB: hệ thống logo, màu sắc, ấn phẩm văn phòng, đồng phục, quà tặng, biển bảng — và tổ chức lễ ra mắt nhận diện thương hiệu mới cùng hội nghị tổng kết hoạt động sản xuất kinh doanh.',
+        video: null
+      },
+      {
+        slug: 'pvchemtech', cat: 'branding', year: '', client: 'PVChem-Tech', page: 'p06', photos: 4,
+        title: 'Bộ nhận diện thương hiệu PVChem-Tech', scope: 'Xây dựng bộ nhận diện thương hiệu',
+        desc: 'Xây dựng hệ thống nhận diện thương hiệu cho PVChem-Tech với slogan “Commit to the success”: quy chuẩn logo và màu sắc, hệ thống ấn phẩm văn phòng, danh thiếp, phong bì, website và các ứng dụng truyền thông.',
+        video: null
+      }
+    ];
+
+    const gallery = (p) => Array.from({ length: p.photos }, (_, i) => `assets/gallery/${p.page}-${i + 1}.jpg`);
+
+    // LƯỚI DỰ ÁN + BỘ LỌC
+    const grid = document.getElementById('projectGrid');
+    grid.innerHTML = PROJECTS.map((p) => `
+      <article class="card" data-cat="${p.cat}" data-project="${p.slug}" tabindex="0">
+        <div class="card-media">
+          <img src="${gallery(p)[0]}" alt="${p.title}" loading="lazy" />
+          ${p.video ? '<span class="card-badge-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Video</span>' : ''}
+          <span class="card-photo-count">${p.photos} ảnh</span>
+        </div>
+        <div class="card-meta"><span class="card-meta-dot"></span>${p.client} · ${p.year || CATS[p.cat]}</div>
+        <h3>${p.title}</h3>
+      </article>`).join('');
+
+    document.querySelectorAll('.filter-pill').forEach((btn) => btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-pill').forEach((b) => b.classList.toggle('active', b === btn));
+      const f = btn.dataset.filter;
+      grid.querySelectorAll('.card').forEach((c) => { c.hidden = f !== 'all' && c.dataset.cat !== f; });
+    }));
+
+    // TRANG CHI TIẾT DỰ ÁN
+    const modal = document.getElementById('projectModal');
+    const lightbox = document.getElementById('pmLightbox');
+    let currentProject = -1;
+
+    function openProject(slug, push = true) {
+      const i = PROJECTS.findIndex((p) => p.slug === slug);
+      if (i < 0) return;
+      currentProject = i;
+      const p = PROJECTS[i];
+      const imgs = gallery(p);
+      const prev = PROJECTS[(i - 1 + PROJECTS.length) % PROJECTS.length];
+      const next = PROJECTS[(i + 1) % PROJECTS.length];
+      const credits = [
+        ['Khách hàng', p.client], ['Hạng mục', p.scope], ['Lĩnh vực', CATS[p.cat]],
+        ['Thời gian', p.year], ['Địa điểm', p.location], ['Đơn vị thực hiện', 'C-STAR.,JSC']
+      ].filter(([, v]) => v);
+      // Ảnh lẻ cuối cùng được kéo full-width để lưới 2 cột không bị hở
+      const wideLast = (imgs.length - 1) % 2 === 1;
+
+      document.getElementById('pmBreadcrumb').textContent = `Dự án / ${CATS[p.cat]}`;
+      document.getElementById('pmContent').innerHTML = `
+        <header class="pm-hero">
+          <img class="pm-hero-bg" src="${imgs[0]}" alt="" />
+          <div class="pm-hero-content">
+            <div class="pm-pills">
+              <span class="pm-pill gold">${CATS[p.cat]}</span>
+              ${p.year ? `<span class="pm-pill">${p.year}</span>` : ''}
+              <span class="pm-pill">Khách hàng: ${p.client}</span>
+            </div>
+            <h2 class="pm-title">${p.title}</h2>
+          </div>
+        </header>
+        <div class="pm-body">
+          ${p.video ? `
+          <section class="pm-video-section">
+            <div class="pm-video-frame">
+              <iframe src="https://www.youtube.com/embed/${p.video}?rel=0" title="${p.videoNote}" loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="pm-video-bar">
+              <span class="pm-video-note">${p.videoNote}</span>
+              <a class="pm-yt-link" href="https://www.youtube.com/watch?v=${p.video}" target="_blank" rel="noopener">Xem trên YouTube ↗</a>
+            </div>
+          </section>` : ''}
+          <section class="pm-info-grid">
+            <div>
+              <span class="pm-section-tag">Thông tin dự án</span>
+              <dl class="pm-credits-list">
+                ${credits.map(([k, v]) => `<div class="pm-credit-item"><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
+              </dl>
+            </div>
+            <div class="pm-story">
+              <span class="pm-section-tag">Về dự án</span>
+              <p>${p.desc}</p>
+            </div>
+          </section>
+          <section class="pm-gallery-section">
+            <span class="pm-section-tag">Hình ảnh · ${imgs.length}</span>
+            <div class="pm-gallery-grid">
+              ${imgs.map((src, k) => `<div class="pm-gallery-item${wideLast && k === imgs.length - 1 ? ' wide' : ''}"><img src="${src}" alt="${p.title} — ảnh ${k + 1}" loading="lazy" /></div>`).join('')}
+            </div>
+          </section>
+          <nav class="pm-footer-nav">
+            <button type="button" class="pm-nav-btn" data-go="${prev.slug}"><small>← Dự án trước</small><strong>${prev.title}</strong></button>
+            <button type="button" class="pm-nav-btn next" data-go="${next.slug}"><small>Dự án tiếp theo →</small><strong>${next.title}</strong></button>
+          </nav>
+        </div>`;
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      modal.scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      if (push) history.pushState({ project: slug }, '', `#du-an/${slug}`);
+    }
+
+    function closeProject(push = true) {
+      if (!modal.classList.contains('open')) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      document.getElementById('pmContent').innerHTML = ''; // dừng video
+      currentProject = -1;
+      if (push) history.pushState(null, '', '#work');
+    }
+
+    // Mở dự án từ lưới, slider đầu trang, danh sách cộng đồng
+    document.addEventListener('click', (e) => {
+      const go = e.target.closest('[data-go]');
+      if (go) return openProject(go.dataset.go);
+      const trigger = e.target.closest('[data-project]');
+      if (trigger && !modal.contains(trigger)) openProject(trigger.dataset.project);
+    });
+    grid.addEventListener('keydown', (e) => {
+      const c = e.target.closest('.card');
+      if (c && e.key === 'Enter') openProject(c.dataset.project);
+    });
+
+    document.getElementById('pmBack').addEventListener('click', () => closeProject());
+
+    // Lightbox xem ảnh lớn
+    modal.addEventListener('click', (e) => {
+      const item = e.target.closest('.pm-gallery-item');
+      if (!item) return;
+      lightbox.querySelector('img').src = item.querySelector('img').src;
+      lightbox.classList.add('open');
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+
+    addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (lightbox.classList.contains('open')) lightbox.classList.remove('open');
+      else closeProject();
+    });
+
+    // Hỗ trợ link trực tiếp #du-an/<slug> và nút Back của trình duyệt
+    function syncFromHash() {
+      const m = location.hash.match(/^#du-an\/(.+)$/);
+      if (m) openProject(m[1], false); else closeProject(false);
+    }
+    addEventListener('popstate', syncFromHash);
+    syncFromHash();
 
     // BỘ CHUYỂN ẢNH SỰ KIỆN TO ĐÙNG Ở PHẦN ĐẦU (HERO SLIDER)
     const slides = document.querySelectorAll('.hero-slide');
