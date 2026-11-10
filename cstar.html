@@ -342,6 +342,8 @@
       height: auto;
       opacity: 0.95;
       pointer-events: none;
+      will-change: transform;
+      filter: drop-shadow(0 18px 30px rgba(120, 40, 70, 0.12));
     }
 
     .hero h1 {
@@ -2409,6 +2411,30 @@
 
       startTimer();
     }
+
+    // Logo chữ A ở khối tuyên ngôn: nghiêng 3D & trôi nhẹ theo con trỏ chuột
+    (() => {
+      const hero = document.querySelector('.hero');
+      const mark = document.querySelector('.hero-mark');
+      if (!hero || !mark || !matchMedia('(hover: hover)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+      const tick = () => {
+        x += (tx - x) * 0.08;
+        y += (ty - y) * 0.08;
+        mark.style.transform = `perspective(900px) translate(${x * 28}px, ${y * 28}px) rotateY(${x * 16}deg) rotateX(${-y * 16}deg)`;
+        raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(tick) : 0;
+      };
+      const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
+
+      hero.addEventListener('mousemove', (e) => {
+        const r = mark.getBoundingClientRect();
+        tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 1.5)));
+        ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 1.5)));
+        kick();
+      });
+      hero.addEventListener('mouseleave', () => { tx = ty = 0; kick(); });
+    })();
   </script>
 </body>
 
