@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C-STAR — Trình Giả Lập Giao Diện Điện Thoại (Mobile Simulator)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f0e13;
+      --panel: #1b1922;
+      --panel-border: rgba(255, 255, 255, 0.1);
+      --accent: #f59e0b;
+      --text: #f3f4f6;
+      --text-dim: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 50% 10%, #201b2a 0%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* TOP BAR CONTROLS */
+    .sim-header {
+      background: rgba(18, 16, 24, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--panel-border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .sim-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sim-brand h1 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sim-brand span.badge {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(245, 158, 11, 0.16);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .sim-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-group {
+      display: inline-flex;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 2px;
+    }
+
+    .sim-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.42rem 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s ease;
+    }
+
+    .sim-btn:hover {
+      color: #fff;
+    }
+
+    .sim-btn.active {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .sim-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .quick-links {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .quick-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.74rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.2s;
+    }
+
+    .quick-links a:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    /* STAGE */
+    .sim-stage {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2.5rem 1rem 3.5rem;
+      overflow: auto;
+    }
+
+    /* DEVICE WRAPPER */
+    .device-viewport {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: top center;
+    }
+
+    .phone-chassis {
+      position: relative;
+      background: #111015;
+      border-radius: 52px;
+      padding: 12px;
+      box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.15),
+        0 0 0 8px #2b2836,
+        0 0 0 10px #1a1822,
+        0 30px 80px rgba(0, 0, 0, 0.7);
+      transition: width 0.35s ease, height 0.35s ease;
+    }
+
+    /* DYNAMIC ISLAND */
+    .dynamic-island {
+      position: absolute;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 112px;
+      height: 28px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 100;
+      pointer-events: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+
+    .island-camera {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #0d1222;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .island-sensor {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #060910;
+    }
+
+    /* HOME INDICATOR */
+    .home-bar {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .device-screen {
+      width: 393px;
+      height: 852px;
+      background: #fdfbf7;
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+      transition: width 0.35s ease, height 0.35s ease;
+    }
+
+    .device-screen iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* FOOTER TIPS */
+    .sim-footer {
+      background: rgba(14, 12, 18, 0.7);
+      border-top: 1px solid var(--panel-border);
+      padding: 0.8rem 1.5rem;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .sim-footer code {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fbbf24;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .sim-footer a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+
+    .sim-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER BAR -->
+  <header class="sim-header">
+    <div class="sim-brand">
+      <h1>C-STAR <span class="badge">Mobile Simulator</span></h1>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="sim-controls">
+      <!-- DEVICE PRESETS -->
+      <div class="btn-group">
+        <button type="button" class="sim-btn active" data-device="iphone15" onclick="setDevice('iphone15')">
+          <span>iPhone 15 Pro</span>
+        </button>
+        <button type="button" class="sim-btn" data-device="iphonese" onclick="setDevice('iphonese')">
+          <span>iPhone SE</span>
+        </button>
+        <button type="button" class="sim-btn" data-device="galaxy" onclick="setDevice('galaxy')">
+          <span>Galaxy S24</span>
+        </button>
+        <button type="button" class="sim-btn" data-device="ipad" onclick="setDevice('ipad')">
+          <span>iPad Mini</span>
+        </button>
+      </div>
+
+      <!-- ORIENTATION -->
+      <div class="btn-group">
+        <button type="button" class="sim-btn" id="btnRotate" onclick="toggleRotate()">
+          <svg viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Xoay ngang</span>
+        </button>
+      </div>
+
+      <!-- ZOOM SCALE -->
+      <div class="btn-group">
+        <button type="button" class="sim-btn" onclick="setScale(0.8)">80%</button>
+        <button type="button" class="sim-btn active" id="btnScale100" onclick="setScale(1.0)">100%</button>
+      </div>
+
+      <!-- RELOAD -->
+      <button type="button" class="sim-btn" onclick="reloadFrame()" style="background: var(--panel); border: 1px solid var(--panel-border);">
+        <svg viewBox="0 0 24 24"><path d="M4 4v5h.582M20 20v-5h-.581M4.582 9a8 8 0 0114.774-2.582M19.419 15a8 8 0 01-14.774 2.582"/></svg>
+        <span>Tải lại</span>
+      </button>
+
+      <!-- QUICK SECTION JUMP -->
+      <div class="quick-links">
+        <span style="font-size: 0.72rem; color: var(--text-dim); margin-left: 0.5rem;">Đến mục:</span>
+        <a href="javascript:void(0)" onclick="jump('#about')">Về chúng tôi</a>
+        <a href="javascript:void(0)" onclick="jump('#services')">Lĩnh vực</a>
+        <a href="javascript:void(0)" onclick="jump('#work')">Dự án</a>
+        <a href="javascript:void(0)" onclick="jump('#clients')">Khách hàng</a>
+        <a href="javascript:void(0)" onclick="jump('#contact')">Liên hệ</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- STAGE -->
+  <main class="sim-stage">
+    <div class="device-viewport" id="viewport">
+      <div class="phone-chassis" id="chassis">
+        <div class="dynamic-island" id="island">
+          <div class="island-sensor"></div>
+          <div class="island-camera"></div>
+        </div>
+        <div class="device-screen" id="screen">
+          <iframe id="appFrame" src="cstar.html"></iframe>
+        </div>
+        <div class="home-bar" id="homeBar"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER TIPS -->
+  <footer class="sim-footer">
+    <div>
+      💡 <strong>Mở trên điện thoại thật:</strong> Kết nối cùng Wi-Fi và truy cập <code>http://192.168.2.73:8000/cstar.html</code> hoặc online: <a href="https://askahuy.github.io/cstar/cstar.html" target="_blank">askahuy.github.io/cstar/cstar.html</a>
+    </div>
+    <div>
+      Phím tắt Chrome trên Mac: Nhấn <code>Cmd + Option + I</code> rồi <code>Cmd + Shift + M</code> để mở Device Mode.
+    </div>
+  </footer>
+
+  <script>
+    const devices = {
+      iphone15: { w: 393, h: 852, radius: 52, screenRadius: 40, island: true },
+      iphonese: { w: 375, h: 667, radius: 36, screenRadius: 26, island: false },
+      galaxy: { w: 412, h: 915, radius: 44, screenRadius: 32, island: false },
+      ipad: { w: 768, h: 1024, radius: 36, screenRadius: 24, island: false }
+    };
+
+    let currentDevice = 'iphone15';
+    let isLandscape = false;
+    let currentScale = 1.0;
+
+    const screen = document.getElementById('screen');
+    const chassis = document.getElementById('chassis');
+    const island = document.getElementById('island');
+    const viewport = document.getElementById('viewport');
+    const appFrame = document.getElementById('appFrame');
+
+    function updateView() {
+      const cfg = devices[currentDevice];
+      const w = isLandscape ? cfg.h : cfg.w;
+      const h = isLandscape ? cfg.w : cfg.h;
+
+      screen.style.width = w + 'px';
+      screen.style.height = h + 'px';
+      screen.style.borderRadius = cfg.screenRadius + 'px';
+      chassis.style.borderRadius = cfg.radius + 'px';
+
+      island.style.display = (cfg.island && !isLandscape) ? 'flex' : 'none';
+
+      document.querySelectorAll('[data-device]').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-device') === currentDevice);
+      });
+    }
+
+    function setDevice(key) {
+      currentDevice = key;
+      updateView();
+    }
+
+    function toggleRotate() {
+      isLandscape = !isLandscape;
+      document.getElementById('btnRotate').classList.toggle('active', isLandscape);
+      updateView();
+    }
+
+    function setScale(scale) {
+      currentScale = scale;
+      viewport.style.transform = `scale(${scale})`;
+      document.querySelectorAll('.sim-controls .btn-group:nth-child(3) .sim-btn').forEach(b => {
+        b.classList.toggle('active', (scale === 1.0 && b.id === 'btnScale100') || (scale !== 1.0 && b.id !== 'btnScale100'));
+      });
+    }
+
+    function reloadFrame() {
+      appFrame.src = appFrame.src;
+    }
+
+    function jump(hash) {
+      appFrame.contentWindow.location.hash = hash;
+    }
+
+    // Auto adjust scale if laptop screen is small
+    window.addEventListener('load', () => {
+      if (window.innerHeight < 960) {
+        setScale(0.85);
+      }
+    });
+  </script>
+</body>
+</html>
